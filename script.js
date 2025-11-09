@@ -11,6 +11,7 @@ profitlosstext = document.getElementById('profitlossvalue');
 riskrewardtext = document.getElementById('riskrewardvalue');
 totalcommissionstext = document.getElementById('totalcommissionvalue');
 numberoftradesinput = document.getElementById('numberoftradesinput');
+error = document.getElementById('error');
 
 endbalance = 0
 expectedvalue = 0
@@ -33,9 +34,9 @@ function drawChart(balanceHistory, initialBalance) {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
     
-    const padding = 40;
-    const width = canvas.width - padding * 2;
-    const height = canvas.height - padding * 2;
+    const padding = 60;
+    const width = canvas.width - (padding+10) * 2;
+    const height = canvas.height - (padding-20)* 2;
     
     const maxBalance = Math.max(...balanceHistory, initialBalance);
     const minBalance = Math.min(...balanceHistory, initialBalance);
@@ -128,14 +129,54 @@ preset100000.addEventListener('click', function() {
 
 calculatebutton.addEventListener('click', function() {
     updateValues();
-    
+    if (winrate < 0){
+        winrate = 0;
+        document.getElementById('winrateinput').value = 0;
+    }
+    if (winrate > 100){
+        winrate = 100;
+        document.getElementById('winrateinput').value = 100;
+    }
+    if (positionsize < 0){
+        positionsize = 0;
+        document.getElementById('positionsizeinput').value = 0;
+    }
+    if (positionsize > 100){
+        positionsize = 100;
+        document.getElementById('positionsizeinput').value = 100;
+    }
+    if (numberoftrades < 1){
+        numberoftrades = 1;
+        document.getElementById('numberoftradesinput').value = 1;
+    }
+    if (commission < 0){
+        commission = 0;
+        document.getElementById('commissioninput').value = 0;
+    }
+    if (commission > 100){
+        commission = 100;
+        document.getElementById('commissioninput').value = 100;
+    }
+    if (startbalance < 0){
+        startbalance = 0;
+        document.getElementById('startbalanceinput').value = 0;
+    }
+    if (lossamount < 0){
+        lossamount = -lossamount;
+        document.getElementById('lossamountinput').value = lossamount;
+    }
+    if (winamount < 0){
+        winamount = -winamount;
+        document.getElementById('winamountinput').value = winamount;
+    }
     // no input (add error)
     if (isNaN(winrate) || isNaN(winamount) || isNaN(lossamount) || 
         isNaN(startbalance) || isNaN(positionsize) || isNaN(numberoftrades) || isNaN(commission)) {
-
+        error.style.display = "block";
         return;
     }
     
+    error.style.display = "none";
     endbalance = startbalance;
     let totalProfitLoss = 0;
     totalcommission = 0;
