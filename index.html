@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategy Tester</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <div id="variablesection">
+            <div id="variablecontainer">
+                <h1>Variables</h1>
+
+                <div id="winrate" class="inputcontainer">
+                    Win Rate
+                    <input type="number" id="winrateinput" max="100">
+                    <h2 class="sign">%</h2>
+                </div>
+            
+                <div id="winamount" class="inputcontainer">
+                    Win Amount
+                    <input type="number" id="winamountinput">
+                    <h2 class="sign">%</h2>
+                </div>
+
+                <div id="lossamount" class="inputcontainer">
+                    Loss Amount
+                    <input type="number" id="lossamountinput">
+                    <h2 class="sign">%</h2>
+                </div>
+
+                <div id="startbalance" class="inputcontainer">
+                    Start Balance
+                    <input type="number" id="startbalanceinput">
+                    <h2 class="sign">$</h2>
+                </div>
+
+                <div id="positionsize" class="inputcontainer">
+                    Position Size
+                    <input type="number" id="positionsizeinput" max="100">
+                    <h2 class="sign">%</h2>                
+                </div>
+
+                <div id="numberoftrades" class="inputcontainer">
+                    Number of Trades
+                    <input type="number" id="numberoftradesinput">
+                    <div id="presetcontainer">
+                        <button id="preset100" class="preset">100</button>
+                        <button id="preset1000" class="preset">1k</button>
+                        <button id="preset10000" class="preset">10k</button>
+                        <button id="preset100000" class="preset">100k</button>
+                    </div>
+                </div>
+
+                <div id="commission" class="inputcontainer">
+                    Commission
+                    <input type="number" id="commissioninput" max="100">
+                    <h2 class="sign">%</h2>                
+                </div>
+
+                <div id="mode">
+                    Mode
+                    <div id="buttoncontainer">
+                        <button id="expectedvaluebutton">Expected Value</button>
+                        <button id="randombutton">Random</button>
+                    </div>
+                </div>
+
+                <button id="calculate">
+                    Calculate
+                </button>
+
+            </div>
+        </div>
+
+        <div id="resultsection">
+            <div id="resultcontainer">
+                <h1>Results</h1>
+
+                <div id="endbalance" class="result">
+                    <h2 id="endbalancetitle">End Balance:</h2>
+                    <h2 id="endbalancevalue">--------</h2>
+                </div>
+
+                <div id="expectedvalue" class="result">
+                    <h2 class="resulttitle">Expected Value</h2>
+                    <h2 id="expectedvaluevalue">--------</h2>
+                </div>
+
+                <div id="profitloss" class="result">
+                    <h2 class="resulttitle">P/L</h2>
+                    <h2 id="profitlossvalue">--------</h2>
+                </div>
+
+                <div id="riskreward" class="result">
+                    <h2 class="resulttitle">Risk / Reward</h2>
+                    <h2 id="riskrewardvalue">--------</h2>
+                </div>
+
+                <div id="totalcommission" class="result">
+                    <h2 class="resulttitle">Total Commission</h2>
+                    <h2 id="totalcommissionvalue">--------</h2>
+                </div>
+
+                <canvas id="chart">
+                </canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
