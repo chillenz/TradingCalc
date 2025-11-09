@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strategy Tester</title>
+    <title>Strategy Calculator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="topbar">
+        Trading Strategy Calculator
+    </div>
     <div id="container">
         <div id="variablesection">
             <div id="variablecontainer">
@@ -84,22 +87,22 @@
                     <h2 id="endbalancevalue">--------</h2>
                 </div>
 
-                <div id="expectedvalue" class="result">
+                <div id="expectedvalue" class="result" title="How much your strategy makes each trade on average">
                     <h2 class="resulttitle">Expected Value</h2>
                     <h2 id="expectedvaluevalue">--------</h2>
                 </div>
 
-                <div id="profitloss" class="result">
+                <div id="profitloss" class="result" title="How much your strategy makes or loses">
                     <h2 class="resulttitle">P/L</h2>
                     <h2 id="profitlossvalue">--------</h2>
                 </div>
 
-                <div id="riskreward" class="result">
+                <div id="riskreward" class="result" title="The ratio of your average gain to average loss">
                     <h2 class="resulttitle">Risk / Reward</h2>
                     <h2 id="riskrewardvalue">--------</h2>
                 </div>
 
-                <div id="totalcommission" class="result">
+                <div id="totalcommission" class="result" title="How much commission you paid">
                     <h2 class="resulttitle">Total Commission</h2>
                     <h2 id="totalcommissionvalue">--------</h2>
                 </div>

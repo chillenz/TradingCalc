@@ -36,27 +36,56 @@ function drawChart(balanceHistory, initialBalance) {
     
     const padding = 60;
     const width = canvas.width - (padding+10) * 2;
-    const height = canvas.height - (padding-20)* 2;
+    const height = canvas.height - (padding-20) * 2;
     
     const maxBalance = Math.max(...balanceHistory, initialBalance);
     const minBalance = Math.min(...balanceHistory, initialBalance);
     const range = maxBalance - minBalance;
     
+    // Add padding to center the graph (10% on each side)
+    const paddedRange = range * 1.2;
+    const paddedMin = minBalance - (paddedRange - range) / 2;
+    const paddedMax = paddedMin + paddedRange;
+    
+    // Draw horizontal gridlines at key levels
+    ctx.strokeStyle = '#6e6e6eff';
+    ctx.lineWidth = 1;
+    for (let i = 0; i <= 4; i++) {
+        const y = height + padding - (height * (i / 4));
+        ctx.beginPath();
+        ctx.moveTo(padding, y);
+        ctx.lineTo(width + padding, y);
+        ctx.stroke();
+    }
+    
+    // Draw initial balance line (key level)
+    const initialY = padding + height - (height * ((initialBalance - paddedMin) / paddedRange));
     ctx.beginPath();
-    ctx.strokeStyle = '#000';
+    ctx.strokeStyle = '#FFA500';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([5, 5]);
+    ctx.moveTo(padding, initialY);
+    ctx.lineTo(width + padding, initialY);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    
+    // Draw axes
+    ctx.beginPath();
+    ctx.strokeStyle = '#797777ff';
     ctx.lineWidth = 2;
     ctx.moveTo(padding, padding);
     ctx.lineTo(padding, height + padding);
     ctx.lineTo(width + padding, height + padding);
     ctx.stroke();
     
+    // Draw balance line
     ctx.beginPath();
     ctx.strokeStyle = '#4CAF50';
     ctx.lineWidth = 2;
     
     balanceHistory.forEach((balance, index) => {
         const x = padding + (width * (index / (balanceHistory.length - 1)));
-        const y = padding + height - (height * ((balance - minBalance) / range));
+        const y = padding + height - (height * ((balance - paddedMin) / paddedRange));
         
         if (index === 0) {
             ctx.moveTo(x, y);
@@ -67,17 +96,23 @@ function drawChart(balanceHistory, initialBalance) {
     
     ctx.stroke();
     
-    ctx.fillStyle = '#000';
+    // Draw y-axis labels
+    ctx.fillStyle = '#000000ff';
     ctx.font = '12px Arial';
-    
     ctx.textAlign = 'right';
     ctx.textBaseline = 'middle';
     for (let i = 0; i <= 4; i++) {
-        const value = minBalance + (range * (i / 4));
+        const value = paddedMin + (paddedRange * (i / 4));
         const y = height + padding - (height * (i / 4));
         ctx.fillText('$' + value.toFixed(2), padding - 5, y);
     }
     
+    // Draw initial balance label
+    ctx.fillStyle = '#FFA500';
+    ctx.fillText('$' + initialBalance.toFixed(2), padding - 5, initialY);
+    
+    // Draw x-axis labels
+    ctx.fillStyle = '#000000ff';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
     for (let i = 0; i <= 4; i++) {
@@ -86,7 +121,6 @@ function drawChart(balanceHistory, initialBalance) {
         ctx.fillText(tradeNum, x, height + padding + 5);
     }
 }
-
 function updateValues() {
     winrate = parseFloat(document.getElementById('winrateinput').value);
     winamount = parseFloat(document.getElementById('winamountinput').value);

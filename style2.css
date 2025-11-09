@@ -7,38 +7,43 @@ body{
     width:100vw;
     height:100vh;
     margin: 0;
-    background-color: #1b1b1e;
-    overflow: hidden;
+    background-color: #35353f;
     display: flex;
-    align-items: center;
     justify-content: center;
     font-family: Arial;
     color: white;
 }
 
 #topbar{
-    display: none; 
+    width: 100%;
+    height: 70px;
+    background-color: #1b1b1e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 #container{
-    width: 80%;
-    height: 85.185%;
-    background-color: #2a2a30;
+    width: 100%;
+    height: 85%;
+    background-color: #27272a;
     border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
+    margin-top: 70px;
 }
 
 #variablesection{
-    width: 40%;
+    width: 100%;
     height:100%;
     background-color: #27272a;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
     display: flex;
     align-items: center;
     flex-direction: column;
-    border-right: 2px #3f3f41 solid;
 }  
 
 #variablesection h1, #resultsection h1{
@@ -57,7 +62,6 @@ body{
     font-size: 20px;
     white-space: nowrap;
 }
-
 #winrate{
     width: calc(50% - 10px);
     margin-right: calc(100% - (50% - 10px));
@@ -85,8 +89,8 @@ body{
 input{
     width: 100%;
     border-radius: 5px;
-    background-color: #37373a;
-    border: #303033 2px solid;
+    background-color: #51565e;
+    border: none;
     margin-top: -15px;
     color: rgb(219, 215, 215);
     font-size: 17px;
@@ -101,7 +105,7 @@ input::after{
 }
 
 #variablecontainer{
-    width: 80%;
+    width: 60%;
     height: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -112,7 +116,9 @@ input::after{
 #mode{
     font-size: 24px;
     margin-top: 30px;
-    width: 100%;
+    width: calc(100% - 600px);
+    margin-left: 300px;
+    margin-right: 300px;
     text-align: center;
 }
 
@@ -138,8 +144,8 @@ button{
 #presetcontainer{
     position: absolute;
     margin-top: 35px;
-    left:40%;
-    transform: translateX(-120%)
+    left:91%;
+    transform: translateX(-200%)
 }
 
 .preset{
@@ -154,8 +160,8 @@ button{
 }
 
 .sign{
-    left: 25%;
-    transform: translateX(-120%);
+    left: 50%;
+    transform: translateX(-200%);
     margin-top: 40px;
     font-size: 18px;
     color: #a5a7ab;
@@ -163,9 +169,10 @@ button{
 }
 
 #lossamount .sign, #positionsize .sign{
-    left: 38.3%;
+    left: 80.3%;
     transform: translateX(-120%);
 }
+
 
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -174,7 +181,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 
 #expectedvaluebutton{
     height: 100%;
-    background-color: #37373a;
+    background-color: #51565e;
     color: white;
     width: calc(50% - 10px);
     border: 2px rgb(67, 175, 238) solid;
@@ -184,7 +191,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 
 #randombutton{
     height: 100%;
-    background-color: #37373a;
+    background-color: #51565e;
     color: white;
     width: calc(50% - 10px);
     border: none;
@@ -199,7 +206,9 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 
 #calculate{
     height: 50px;
-    width: 100%;
+    width: calc(100% - 600px);
+    margin-left: 300px;
+    margin-right: 300px;
     background-color: #3e4857;
     color: white;
     border: none;
@@ -214,7 +223,7 @@ input:focus{
 }
 
 #resultsection{
-    width: 60%;
+    width: 100%;
     height:100%;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -224,7 +233,7 @@ input:focus{
 }  
 
 #resultcontainer{
-    width: 75%;
+    width: 45%;
     height: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -246,8 +255,7 @@ h2{
     justify-content: center;
     align-items: center;
     gap: 0;
-    background-color: #323238;
-    border: 2px #3f3f41 solid;
+    background-color: #617291;
     border-radius: 10px;
     text-align: center;
     font-size: 15px;
@@ -265,8 +273,7 @@ h2{
     justify-content: center;
     align-items: center;
     gap: 0;
-    background-color: #323238;
-    border: 2px #3f3f41 solid;
+    background-color: #617291;
     border-radius: 10px;
     text-align: center;
     font-size: 15px;
@@ -277,12 +284,10 @@ h2{
 #chart{
     width: 100%;
     height: 370px;
-    background-color: rgb(236, 234, 234);
+    background-color: rgb(241, 241, 241);
     border-radius: 5px;
     margin-top: 30px;
 }
-
-
 
 #calculate:hover{
     cursor: pointer;
@@ -296,7 +301,7 @@ h2{
 }
 
 #endbalance:hover, #expectedvalue:hover, #profitloss:hover, #riskreward:hover, #totalcommission:hover{
-    background-color: #444453;
+    background-color: #697a99;
     scale: 1.05;
 }
 
@@ -317,7 +322,6 @@ h2{
     width: 10%;
     display:none;
 }
-
 
 @media screen and (max-width: 768px) {
     body {
