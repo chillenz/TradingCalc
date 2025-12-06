@@ -3,116 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strategy Calculator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Strategy Calculator</title> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style2.css">
 </head>
 <body>
-    <div id="topbar">
-        Trading Strategy Calculator
-    </div>
-    <div id="container">
-        <div id="variablesection">
+    
+    <header id="topbar">
+        <div class="brand">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="13" width="4" height="9" rx="1" fill="#1A2B5F" id="leg1"/>
+                <rect x="10" y="6" width="4" height="16" rx="1" fill="#19D4C3"/>
+                <rect x="18" y="10" width="4" height="12" rx="1" fill="#1A2B5F" id="leg2"/>
+            </svg>
+            Trading Strategy Calculator
+        </div>
+        <div id="bgbutton">
+            <div id="circle"></div>
+        </div>
+    </header>
+    <main class="container" id="container">
+
+        <section id="variablesection" class="card inputs-card">
+            <h2>Strategy Inputs</h2> 
             <div id="variablecontainer">
-                <h1>Variables</h1>    
-
-                <div id="winrate" class="inputcontainer">
-                    Win Rate
-                    <input type="number" id="winrateinput" max="100">
-                    <h2 class="sign">%</h2>
-                </div>
-            
-                <div id="winamount" class="inputcontainer">
-                    Win Amount
-                    <input type="number" id="winamountinput">
-                    <h2 class="sign">%</h2>
-                </div>
-
-                <div id="lossamount" class="inputcontainer">
-                    Loss Amount
-                    <input type="number" id="lossamountinput">
-                    <h2 class="sign">%</h2>
-                </div>
-
-                <div id="startbalance" class="inputcontainer">
-                    Start Balance
-                    <input type="number" id="startbalanceinput">
-                    <h2 class="sign">$</h2>
-                </div>
-
-                <div id="positionsize" class="inputcontainer">
-                    Position Size
-                    <input type="number" id="positionsizeinput" max="100">
-                    <h2 class="sign">%</h2>                
-                </div>
-
-                <div id="numberoftrades" class="inputcontainer">
-                    Number of Trades
-                    <input type="number" id="numberoftradesinput">
-                    <div id="presetcontainer">
-                        <button id="preset100" class="preset">100</button>
-                        <button id="preset1000" class="preset">1k</button>
-                        <button id="preset10000" class="preset">10k</button>
-                        <button id="preset100000" class="preset">100k</button>
+                
+                <div id="winrate" class="input-group">
+                    <label>Win Rate (%)</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="winrateinput" value="50">
+                        <span class="suffix">%</span>
                     </div>
                 </div>
 
-                <div id="commission" class="inputcontainer">
-                    Commission
-                    <input type="number" id="commissioninput" max="100">
-                    <h2 class="sign">%</h2>      
-                    <div id="error">Please fill out every input</div>              
-                </div>
-
-                <div id="mode">
-                    Mode
-                    <div id="buttoncontainer">
-                        <button id="expectedvaluebutton">Expected Value</button>
-                        <button id="randombutton">Random</button>
+                <div id="winamount" class="input-group">
+                    <label>Win Amount (%) <span title="Avg % gain on winning trade">i</span></label>
+                    <div class="input-wrapper">
+                        <input type="number" id="winamountinput" value="5">
+                        <span class="suffix">%</span>
                     </div>
                 </div>
 
-                <button id="calculate">
+                <div id="lossamount" class="input-group">
+                    <label>Loss Amount (%) <span title="Avg % loss on losing trade">i</span></label>
+                    <div class="input-wrapper">
+                        <input type="number" id="lossamountinput" value="3">
+                        <span class="suffix">%</span>
+                    </div>
+                </div>
+
+                <div id="startbalance" class="input-group">
+                    <label>Starting Balance ($)</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="startbalanceinput" value="1000">
+                        <span class="suffix">$</span>
+                    </div>
+                </div>
+
+                <div id="positionsize" class="input-group">
+                    <label>Position Size</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="positionsizeinput" value="20">
+                        <span class="suffix">% Bal</span>
+                    </div>
+                </div>
+
+                <div id="numberoftrades" class="input-group">
+                    <label>Number of Trades</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="numberoftradesinput" value="1000">
+                    </div>
+                    <div class="presets">
+                        <span class="preset-tag">100</span>
+                        <span class="preset-tag">1k</span>
+                        <span class="preset-tag">10k</span>
+                    </div>
+                </div>
+                
+                <div id="commission" class="input-group">
+                    <label>Commission</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="commissioninput" value="0.1">
+                        <span class="suffix">%</span>
+                    </div>
+                </div>
+                
+                <div class="mode-switch">
+                    <div class="mode-option active" id="expectedvaluebutton">Expected Value</div>
+                    <div class="mode-option" id="randombutton">Monte Carlo</div>
+                </div>
+                
+                <button class="btn-calc" id="calculate">
                     Calculate
                 </button>
+                <div id="error" style="display:none;color:var(--danger);margin-top:8px;font-size:0.9rem;">Please fill all inputs correctly.</div>
 
             </div>
-        </div>
+        </section>
 
-        <div id="resultsection">
-            <div id="resultcontainer">
-                <h1>Results</h1>
-
-                <div id="endbalance" class="result">
-                    <h2 id="endbalancetitle">End Balance:</h2>
-                    <h2 id="endbalancevalue">--------</h2>
+        <section id="resultsection" class="card results-card">
+            
+            <h2>Performance Results</h2> <div class="stats-grid">
+                
+                <div id="endbalance" class="stat-tile">
+                    <div id="endbalancevalue" class="stat-value text-green">$0</div>
+                    <div id="endbalancetitle" class="stat-label">Ending Balance</div>
                 </div>
 
-                <div id="expectedvalue" class="result" title="How much your strategy makes each trade on average">
-                    <h2 class="resulttitle">Expected Value</h2>
-                    <h2 id="expectedvaluevalue">--------</h2>
+                <div id="profitloss" class="stat-tile">
+                    <div id="profitlossvalue" class="stat-value text-green">+$0</div>
+                    <div class="stat-label">Total P/L</div>
+                </div>
+                
+                <div class="stat-tile" id="accountrisk">
+                    <div id="accountriskvalue" class="stat-value text-red">0%</div>
+                    <div class="stat-label">Account Risk</div>
                 </div>
 
-                <div id="profitloss" class="result" title="How much your strategy makes or loses">
-                    <h2 class="resulttitle">P/L</h2>
-                    <h2 id="profitlossvalue">--------</h2>
+                <div id="expectedvalue" class="stat-tile">
+                    <div id="expectedvaluevalue" class="stat-value text-blue">0</div>
+                    <div class="stat-label">Expected Value</div>
                 </div>
-
-                <div id="riskreward" class="result" title="The ratio of your average gain to average loss">
-                    <h2 class="resulttitle">Risk / Reward</h2>
-                    <h2 id="riskrewardvalue">--------</h2>
+                
+                <div id="riskreward" class="stat-tile">
+                    <div id="riskrewardvalue" class="stat-value text-blue">1</div>
+                    <div class="stat-label">Risk / Reward</div>
                 </div>
-
-                <div id="totalcommission" class="result" title="How much commission you paid">
-                    <h2 class="resulttitle">Total Commission</h2>
-                    <h2 id="totalcommissionvalue">--------</h2>
+                            
+                
+                <div id="totalcommission" class="stat-tile">
+                    <div id="totalcommissionvalue" class="stat-value text-light">$0</div>
+                    <div class="stat-label">Fees Paid</div>
                 </div>
-
-                <canvas id="chart">
-                </canvas>
             </div>
-        </div>
-    </div>
 
+            <div class="graph-section">
+                <div class="graph-tabs">
+                    <div class="graph-tab active">Balance Graph</div>
+                </div>
+
+                <div class="chart-placeholder">
+                    <canvas id="chart" style="position:absolute;left:0;top:0;width:100%;height:100%;"></canvas>
+                    <svg class="mock-svg" viewBox="0 0 500 200" preserveAspectRatio="none">
+                        
+                    </svg>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
