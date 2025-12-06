@@ -14,11 +14,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorEl = document.getElementById('error');
     const leg1 = document.getElementById('leg1');
     const leg2 = document.getElementById('leg2');
+    const positionsizeinput = document.getElementById('positionsizeinput');
+    const inputvaluetext = document.getElementById('inputvaluetext');
 
     const bgbutton = document.getElementById('bgbutton');
     const circle = document.getElementById('circle');
 
     let bgmode = localStorage.getItem('mode') || 'light';
+
+    positionsizeinput.addEventListener('input', (event) => {
+        inputvaluetext.textContent = event.target.value + '% Bal'; 
+        const value = positionsizeinput.value;
+        const max = positionsizeinput.max;
+        const percentage = (value / max) * 100;
+        
+        const gradient = `linear-gradient(to right, var(--accent) 0%, var(--accent) ${percentage}%, #ccc ${percentage}%, #ccc 100%)`;
+        
+        positionsizeinput.style.setProperty('--track-background', gradient);
+        
+        positionsizeinput.style.background = gradient;
+    });
 
     function changebg(modeVal) {
         bgmode = modeVal;
@@ -166,6 +181,47 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         if (errorEl) errorEl.style.display = 'none';
+
+        if (winrate < 0){
+            winrate = 0;
+            document.getElementById('winrateinput').value = 0;
+        }
+        if (winrate > 100){
+            winrate = 100;
+            document.getElementById('winrateinput').value = 100;
+        }
+        if (positionsize < 0){
+            positionsize = 0;
+            document.getElementById('positionsizeinput').value = 0;
+        }
+        if (positionsize > 100){
+            positionsize = 100;
+            document.getElementById('positionsizeinput').value = 100;
+        }
+        if (numberoftrades < 1){
+            numberoftrades = 1;
+            document.getElementById('numberoftradesinput').value = 1;
+        }
+        if (commission < 0){
+            commission = 0;
+            document.getElementById('commissioninput').value = 0;
+        }
+        if (commission > 100){
+            commission = 100;
+            document.getElementById('commissioninput').value = 100;
+        }
+        if (startbalance < 0){
+            startbalance = 0;
+            document.getElementById('startbalanceinput').value = 0;
+        }
+        if (lossamount < 0){
+            lossamount = -lossamount;
+            document.getElementById('lossamountinput').value = lossamount;
+        }
+        if (winamount < 0){
+            winamount = -winamount;
+            document.getElementById('winamountinput').value = winamount;
+        }
 
         winrate = Math.min(100, Math.max(0, winrate));
         positionsize = Math.min(100, Math.max(0, positionsize));

@@ -61,15 +61,7 @@
                         <span class="suffix">$</span>
                     </div>
                 </div>
-
-                <div id="positionsize" class="input-group">
-                    <label>Position Size</label>
-                    <div class="input-wrapper">
-                        <input type="number" id="positionsizeinput" value="20">
-                        <span class="suffix">% Bal</span>
-                    </div>
-                </div>
-
+                
                 <div id="numberoftrades" class="input-group">
                     <label>Number of Trades</label>
                     <div class="input-wrapper">
@@ -79,6 +71,14 @@
                         <span class="preset-tag">100</span>
                         <span class="preset-tag">1k</span>
                         <span class="preset-tag">10k</span>
+                    </div>
+                </div>
+                
+                <div id="positionsize" class="input-group">
+                    <label>Position Size</label>
+                    <div class="input-wrapper">
+                        <input type="range" id="positionsizeinput" min="0" max="100" value="20" step="5">
+                        <span class="suffix" id="inputvaluetext">20% Bal</span>
                     </div>
                 </div>
                 
