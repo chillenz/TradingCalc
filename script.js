@@ -30,9 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const gradient = `linear-gradient(to right, var(--accent) 0%, var(--accent) ${percentage}%, #ccc ${percentage}%, #ccc 100%)`;
         
-        positionsizeinput.style.setProperty('--track-background', gradient);
-        
-        positionsizeinput.style.background = gradient;
+        positionsizeinput.style.setProperty('--track-fill', gradient);
     });
 
     function changebg(modeVal) {
@@ -69,16 +67,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let mode = 'expectedvalue';
     let chartInstance = null;
 
-    function parsePreset(text) {
-        const t = text.trim().toLowerCase();
-        if (t.endsWith('k')) return Math.round(parseFloat(t) * 1000);
-        if (t.endsWith('m')) return Math.round(parseFloat(t) * 1000000);
-        return parseInt(t, 10) || 0;
-    }
-
     presets.forEach(p => {
         p.addEventListener('click', () => {
-            const val = parsePreset(p.textContent || p.innerText);
+            const val = p.textContent || p.innerText;
+            if (val.includes('k')){
+                numberoftradesinput.value = parseInt(val.replace('k', '')) * 1000;
+            }
             if (val > 0) {
                 numberoftradesinput.value = val;
             }
@@ -168,6 +162,36 @@ document.addEventListener('DOMContentLoaded', () => {
         return { winrate, winamount, lossamount, startbalance, positionsize, numberoftrades, commission };
     }
 
+    function magnitude(num) {
+        if (num >= 1e5 && num < 1e6) {
+            return (num / 1e3).toFixed(3) + 'K';
+        }else if (num >= 1e6 && num < 1e9) {
+            return (num / 1e6).toFixed(3) + 'M';
+        } else if (num >= 1e9 && num < 1e12) {
+            return (num / 1e9).toFixed(3) + 'B';
+        } else if (num >= 1e12 && num < 1e15) {
+            return (num / 1e12).toFixed(3) + 'T';
+        } else if (num >= 1e15 && num < 1e18) {
+            return (num / 1e15).toFixed(3) + 'Qa';  
+        } else if (num >= 1e18 && num < 1e21) {
+            return (num / 1e18).toFixed(3) + 'Qi'; 
+        } else if (num >= 1e21 && num < 1e24) {
+            return (num / 1e21).toFixed(3) + 'Sx';  
+        } else if (num >= 1e24 && num < 1e27) {
+            return (num / 1e24).toFixed(3) + 'Sp'; 
+        } else if (num >= 1e27 && num < 1e30) {
+            return (num / 1e27).toFixed(3) + 'Oc';  
+        } else if (num >= 1e30 && num < 1e33) {
+            return (num / 1e30).toFixed(3) + 'No'; 
+        } else if (num >= 1e33 && num < 1e36) {
+            return (num / 1e33).toFixed(3) + 'Dc'; 
+        } else if (num >= 1e36) {
+            return "Limit Exceeded";
+        } else {
+            return num.toFixed(2);
+        }
+    }
+
     calculatebutton.addEventListener('click', () => {
         const vals = updateValues();
         let { winrate, winamount, lossamount, startbalance, positionsize, numberoftrades, commission } = vals;
@@ -235,22 +259,22 @@ document.addEventListener('DOMContentLoaded', () => {
         let totalcommission = 0;
         let expectedvaluePerTrade = 0;
 
-        const winProbability = winrate / 100;
-        const lossProbability = 1 - winProbability;
+        const winprob = winrate / 100;
+        const lossprob = 1 - winprob;
         const riskreward = lossamount === 0 ? Infinity : (winamount / lossamount);
 
         if (mode === 'expectedvalue') {
             
-            const winGrowthFactor = 1 + (winamount / 100);
-            const lossGrowthFactor = 1 - (lossamount / 100);
-            const commissionFactor = 1 - (commission / 100);
+            const growthfactor = 1 + (winamount / 100);
+            const lossfactor = 1 - (lossamount / 100);
+            const commissionfactor = 1 - (commission / 100);
 
             
             const expectedLogGrowth =
-                (winProbability * Math.log(winGrowthFactor * commissionFactor)) +
-                (lossProbability * Math.log(lossGrowthFactor * commissionFactor));
+                (winprob * Math.log(growthfactor * commissionfactor)) +
+                (lossprob * Math.log(lossfactor * commissionfactor));
 
-            const expectedGrowthFactor = commissionFactor * (winProbability * winGrowthFactor + lossProbability * lossGrowthFactor);
+            const expectedfactor = commissionfactor * (winprob * growthfactor + lossprob * lossfactor);
 
             
             for (let i = 0; i < numberoftrades; i++) {
@@ -258,8 +282,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const balanceNotInTrade = endbalance - currentPosition;
                 
                 
-                const newPosition = currentPosition * expectedGrowthFactor;
-                endbalance = balanceNotInTrade + newPosition;
+                const newposition = currentPosition * expectedfactor;
+                endbalance = balanceNotInTrade + newposition;
 
                 
                 const commissionAmount = currentPosition * (commission / 100);
@@ -282,19 +306,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 const commissionAmount = currentPosition * (commission / 100);
 
                 const randomnum = Math.random() * 100;
-                let newPosition = 0;
+                let newposition = 0;
 
                 if (randomnum <= winrate) {
                     
                     const winFactor = 1 + (winamount / 100);
-                    newPosition = currentPosition * winFactor - commissionAmount;
+                    newposition = currentPosition * winFactor - commissionAmount;
                 } else {
                     
                     const lossFactor = 1 - (lossamount / 100);
-                    newPosition = currentPosition * lossFactor - commissionAmount;
+                    newposition = currentPosition * lossFactor - commissionAmount;
                 }
 
-                endbalance = balanceNotInTrade + newPosition;
+                endbalance = balanceNotInTrade + newposition;
                 totalcommission += commissionAmount;
 
                 if (endbalance <= 0) { 
@@ -310,21 +334,21 @@ document.addEventListener('DOMContentLoaded', () => {
         expectedvaluePerTrade = profitloss / numberoftrades;
         
         const balanceHistory = [];
-        const sampleInterval = Math.max(1, Math.floor(numberoftrades / 300));
+        const numOfpoints = Math.max(1, Math.floor(numberoftrades / 300));
         let historyBalance = startbalance;
 
         if (mode === 'expectedvalue') {
-            const winGrowthFactor = 1 + (winamount / 100);
-            const lossGrowthFactor = 1 - (lossamount / 100);
-            const commissionFactor = 1 - (commission / 100);
+            const growthfactor = 1 + (winamount / 100);
+            const lossfactor = 1 - (lossamount / 100);
+            const commissionfactor = 1 - (commission / 100);
 
-            const expectedGrowthFactor = commissionFactor * (winProbability * winGrowthFactor + lossProbability * lossGrowthFactor);
+            const expectedfactor = commissionfactor * (winprob * growthfactor + lossprob * lossfactor);
 
             for (let i = 0; i < numberoftrades; i++) {
                 const currentPosition = historyBalance * (positionsize / 100);
                 const balanceNotInTrade = historyBalance - currentPosition;
-                const newPosition = currentPosition * expectedGrowthFactor;
-                historyBalance = balanceNotInTrade + newPosition;
+                const newposition = currentPosition * expectedfactor;
+                historyBalance = balanceNotInTrade + newposition;
 
                 if (historyBalance <= 0) {
                     historyBalance = 0;
@@ -332,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     break;
                 }
 
-                if (i % sampleInterval === 0 || i === numberoftrades - 1) {
+                if (i % numOfpoints === 0 || i === numberoftrades - 1) {
                     balanceHistory.push(historyBalance);
                 }
             }
@@ -344,17 +368,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const commissionAmount = currentPosition * (commission / 100);
 
                 const randomnum = Math.random() * 100;
-                let newPosition = 0;
+                let newposition = 0;
 
                 if (randomnum <= winrate) {
                     const winFactor = 1 + (winamount / 100);
-                    newPosition = currentPosition * winFactor - commissionAmount;
+                    newposition = currentPosition * winFactor - commissionAmount;
                 } else {
                     const lossFactor = 1 - (lossamount / 100);
-                    newPosition = currentPosition * lossFactor - commissionAmount;
+                    newposition = currentPosition * lossFactor - commissionAmount;
                 }
 
-                historyBalance = balanceNotInTrade + newPosition;
+                historyBalance = balanceNotInTrade + newposition;
 
                 if (historyBalance <= 0) {
                     historyBalance = 0;
@@ -362,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     break;
                 }
 
-                if (i % sampleInterval === 0 || i === numberoftrades - 1) {
+                if (i % numOfpoints === 0 || i === numberoftrades - 1) {
                     balanceHistory.push(historyBalance);
                 }
             }
@@ -371,15 +395,15 @@ document.addEventListener('DOMContentLoaded', () => {
         drawChart(balanceHistory, startbalance, numberoftrades);
 
         
-        endbalancetext.textContent = '$' + endbalance.toFixed(2);
-        expectedvaluetext.textContent = '$' + expectedvaluePerTrade.toFixed(2);
-        riskrewardtext.textContent = (isFinite(riskreward) ? riskreward.toFixed(2) : '—');
-        totalcommissionstext.textContent = '$' + totalcommission.toFixed(2);
-        accountriskvalue.textContent = (positionsize * lossamount / 100).toFixed(2) + '%';
+        endbalancetext.textContent = '$' + magnitude(endbalance);
+        expectedvaluetext.textContent = '$' + magnitude(expectedvaluePerTrade);
+        riskrewardtext.textContent = (isFinite(riskreward) ? magnitude(riskreward) : '—');
+        totalcommissionstext.textContent = '$' + magnitude(totalcommission);
+        accountriskvalue.textContent = (positionsize * lossamount / 100) + '%';
 
         
         if (profitloss > 0) {
-            profitlosstext.textContent = '+$' + profitloss.toFixed(2);
+            profitlosstext.textContent = '+$' + magnitude(profitloss);
             profitlosstext.classList.add('text-green');
             profitlosstext.classList.remove('text-red');
             endbalancetext.classList.add('text-green');
@@ -387,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (profitloss < 0) {
             profitlosstext.classList.add('text-red');
             profitlosstext.classList.remove('text-green');
-            profitlosstext.textContent = '-$' + (-1 * profitloss).toFixed(2);
+            profitlosstext.textContent = '-$' + magnitude(-1 * profitloss);
             endbalancetext.classList.add('text-red');
             endbalancetext.classList.remove('text-green');
         } else {

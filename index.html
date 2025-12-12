@@ -9,10 +9,10 @@
     
     <link rel="stylesheet" href="style2.css">
 </head>
-<body>
+<body class="dark-mode">
     
     <header id="topbar">
-        <div class="brand">
+        <div id="brand">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="2" y="13" width="4" height="9" rx="1" fill="#1A2B5F" id="leg1"/>
                 <rect x="10" y="6" width="4" height="16" rx="1" fill="#19D4C3"/>
@@ -24,9 +24,9 @@
             <div id="circle"></div>
         </div>
     </header>
-    <main class="container" id="container">
+    <main id="container">
 
-        <section id="variablesection" class="card inputs-card">
+        <section id="variablesection">
             <h2>Strategy Inputs</h2> 
             <div id="variablecontainer">
                 
@@ -67,7 +67,7 @@
                     <div class="input-wrapper">
                         <input type="number" id="numberoftradesinput" value="1000">
                     </div>
-                    <div class="presets">
+                    <div id="presetscontainer">
                         <span class="preset-tag">100</span>
                         <span class="preset-tag">1k</span>
                         <span class="preset-tag">10k</span>
@@ -95,7 +95,7 @@
                     <div class="mode-option" id="randombutton">Monte Carlo</div>
                 </div>
                 
-                <button class="btn-calc" id="calculate">
+                <button id="calculate">
                     Calculate
                 </button>
                 <div id="error" style="display:none;color:var(--danger);margin-top:8px;font-size:0.9rem;">Please fill all inputs correctly.</div>
@@ -103,10 +103,11 @@
             </div>
         </section>
 
-        <section id="resultsection" class="card results-card">
+        <section id="resultsection">
             
-            <h2>Performance Results</h2> <div class="stats-grid">
-                
+            <h2>Performance Results</h2> 
+            
+            <div id="stats-grid">    
                 <div id="endbalance" class="stat-tile">
                     <div id="endbalancevalue" class="stat-value text-green">$0</div>
                     <div id="endbalancetitle" class="stat-label">Ending Balance</div>
@@ -139,12 +140,12 @@
                 </div>
             </div>
 
-            <div class="graph-section">
-                <div class="graph-tabs">
+            <div id="graph-section">
+                <div id="graph-tabs">
                     <div class="graph-tab active">Balance Graph</div>
                 </div>
 
-                <div class="chart-placeholder">
+                <div id="chart-placeholder">
                     <canvas id="chart" style="position:absolute;left:0;top:0;width:100%;height:100%;"></canvas>
                     <svg class="mock-svg" viewBox="0 0 500 200" preserveAspectRatio="none">
                         

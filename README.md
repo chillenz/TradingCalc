@@ -34,7 +34,15 @@ Website Demo
 ![demo video](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjcwdzd1bWdjejQ0ZmhzNG8wNDRpMHAxMW1hdmNnNDJxMW1sZnNlciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FOUJMfx8eeSMPz69N7/giphy.gif)
 ## Change Logs
 
-**Version 2.1 (Current)**
+**Version 2.2 (Current)**
+- Changed default mode to dark
+- Combined everything into one window
+- Fixed mobile overflow
+- Improved UI
+- Removed an unnecessary function (parsepreset)
+- Added magnitude (M,B,T, and more)
+
+**Version 2.1**
 - Added parameters' max value
 - Changed postion size into range input
 - Added README.md 
