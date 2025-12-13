@@ -20,7 +20,7 @@ Trading Strategy Calculator is a website based tool for testing and analyzing yo
 | Parameters             | Description                                                                |
 | ----------------- | ------------------------------------------------------------------ |
 | Ending Balance | Account capital after all trades |
-| Total P/L | Total Profit/Loss after all trades |
+| Total P/L | Total Profit or Loss after all trades |
 | Account Risk | Percentage of account risked on each trade |
 | Expected Value | Average Profit/Loss on eaach trade |
 | Risk/Reward | The ratio of win amount to loss amount |
@@ -32,9 +32,25 @@ Trading Strategy Calculator is a website based tool for testing and analyzing yo
 Website Demo
 
 ![demo video](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjcwdzd1bWdjejQ0ZmhzNG8wNDRpMHAxMW1hdmNnNDJxMW1sZnNlciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FOUJMfx8eeSMPz69N7/giphy.gif)
+## Tech Stack
+
+**Frontend:** HTML5, CSS3, Javascript
+
+**Chart:** Chart.js
+
+**Calculation:** Javascript
+
+**Storage:** LocalStorage
 ## Change Logs
 
-**Version 2.2 (Current)**
+**version 2.3 (Current)**
+- Fixed shadow
+- Fixed chart border
+- Added tooltips for results
+- Made input and output sides' height equal
+- Better chart in mobile version
+
+**Version 2.2**
 - Changed default mode to dark
 - Combined everything into one window
 - Fixed mobile overflow
@@ -61,12 +77,3 @@ Website Demo
 
 **Version 1**
 - Initial Release
-## Tech Stack
-
-**Frontend:** HTML5, CSS3, Javascript
-
-**Chart:** Chart.js
-
-**Calculation:** Javascript
-
-**Storage:** LocalStorage

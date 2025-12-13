@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bgbutton = document.getElementById('bgbutton');
     const circle = document.getElementById('circle');
 
-    let bgmode = localStorage.getItem('mode') || 'light';
+    let bgmode = localStorage.getItem('mode') || 'dark';
 
     positionsizeinput.addEventListener('input', (event) => {
         inputvaluetext.textContent = event.target.value + '% Bal'; 
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         positionsizeinput.style.setProperty('--track-fill', gradient);
     });
-
+    
     function changebg(modeVal) {
         bgmode = modeVal;
         if (bgmode === 'dark') {
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 leg2.style.fill = '#1A2B5F';
             }
         }
-        try { localStorage.setItem('mode', bgmode); } catch (e) { /* i */ }
+        try { localStorage.setItem('mode', bgmode); } catch (e) {}
     }
 
     if (bgbutton) {
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         expectedvaluebutton.classList.remove('active');
     });
 
-    function drawChart(balanceHistory, initialBalance, numberOfTrades) {
+    function drawChart(balanceHistory, initialBalance) {
         const ctx = document.getElementById('chart').getContext('2d');
         if (!ctx) return;
 
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 elements: {
                     point: {
                         borderWidth: 0,
-                        radius: 0,
+                        radius:0,
                     }
                 }
             }
@@ -392,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        drawChart(balanceHistory, startbalance, numberoftrades);
+        drawChart(balanceHistory, startbalance);
 
         
         endbalancetext.textContent = '$' + magnitude(endbalance);

@@ -50,7 +50,7 @@ body.dark-mode {
     --success: #27AE60;
     --danger: #EB5757;
     --shadow: 0 6px 20px rgba(0,0,0,0.25);
-    --window-bg: #0f1724;
+    --window-bg: #111927;
     --window-border: rgba(255,255,255,0.06);
     --input-bg: #0b1220;
     --input-border: rgba(255,255,255,0.06);
@@ -123,12 +123,9 @@ header::after {
     margin: 1rem 2rem;
 }
 
-#brand span { color: var(--accent); }
-
 #container {
     max-width: 1200px;
     margin: 2rem auto;
-    padding: 0 20px;
     display: grid;
     grid-template-columns: 350px 1fr; 
     align-items: start;
@@ -141,6 +138,7 @@ header::after {
     padding: 1.5rem;
     transition: transform 0.2s ease;
     max-width: 100%;
+    height: 100%;   
 }
 
 h2 {
@@ -156,7 +154,7 @@ h2 {
 #variablecontainer {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: .7rem;
 }
 
 .input-group {
@@ -301,8 +299,6 @@ input[type="range"]:focus {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    margin-top: 0.5rem; 
 }
 
 .btn-calc:hover {
@@ -375,22 +371,23 @@ input[type="range"]:focus {
 
 
 
-#graph-section {
+#graphsection {
     background: var(--window-bg);
-    border-radius: 10000px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     position: relative;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    padding: 20px;
+    border-radius: 10px;
 }
 
-#graph-tabs {
+#graphtabs {
     display: flex;
     gap: 1.5rem;
     border-bottom: 1px solid var(--line);
     margin-bottom: 1rem;
 }
 
-.graph-tab {
+.graphtab {
     padding-bottom: 0.5rem;
     color: var(--text-light);
     cursor: pointer;
@@ -398,12 +395,12 @@ input[type="range"]:focus {
     position: relative;
 }
 
-.graph-tab.active {
+.graphtab.active {
     color: var(--primary);
     font-weight: 600;
 }
 
-.graph-tab.active::after {
+.graphtab.active::after {
     content: '';
     position: absolute;
     bottom: -1px;
@@ -415,7 +412,7 @@ input[type="range"]:focus {
 
 #chart-placeholder {
     width: 100%;
-    height: 440px;
+    height: 400px;
     background: linear-gradient(to bottom, var(--window-gradient-start), var(--window-gradient-end));
     position: relative;
     border: 1px dashed var(--line);
@@ -451,7 +448,7 @@ input::-webkit-inner-spin-button {
     #stats-grid {
         grid-template-columns: 1fr 1fr;
     }
-    .chart-placeholder {
+    #chart-placeholder {
         height: 300px;
     }
 

@@ -24,8 +24,8 @@
             <div id="circle"></div>
         </div>
     </header>
-    <main id="container">
 
+    <main id="container">
         <section id="variablesection">
             <h2>Strategy Inputs</h2> 
             <div id="variablecontainer">
@@ -39,7 +39,7 @@
                 </div>
 
                 <div id="winamount" class="input-group">
-                    <label>Win Amount (%) <span title="Avg % gain on winning trade">i</span></label>
+                    <label>Win Amount (%) <span title="average % gain on winning trade">i</span></label>
                     <div class="input-wrapper">
                         <input type="number" id="winamountinput" value="5">
                         <span class="suffix">%</span>
@@ -47,7 +47,7 @@
                 </div>
 
                 <div id="lossamount" class="input-group">
-                    <label>Loss Amount (%) <span title="Avg % loss on losing trade">i</span></label>
+                    <label>Loss Amount (%) <span title="Average % loss on losing trade">i</span></label>
                     <div class="input-wrapper">
                         <input type="number" id="lossamountinput" value="3">
                         <span class="suffix">%</span>
@@ -110,39 +110,39 @@
             <div id="stats-grid">    
                 <div id="endbalance" class="stat-tile">
                     <div id="endbalancevalue" class="stat-value text-green">$0</div>
-                    <div id="endbalancetitle" class="stat-label">Ending Balance</div>
+                    <div id="endbalancetitle" class="stat-label" title="Account capital after all trades">Ending Balance</div>
                 </div>
 
                 <div id="profitloss" class="stat-tile">
                     <div id="profitlossvalue" class="stat-value text-green">+$0</div>
-                    <div class="stat-label">Total P/L</div>
+                    <div class="stat-label" title="Total profit/loss after all trades">Total P/L</div>
                 </div>
                 
                 <div class="stat-tile" id="accountrisk">
                     <div id="accountriskvalue" class="stat-value text-red">0%</div>
-                    <div class="stat-label">Account Risk</div>
+                    <div class="stat-label" title="% of account risked on each trade">Account Risk</div>
                 </div>
 
                 <div id="expectedvalue" class="stat-tile">
                     <div id="expectedvaluevalue" class="stat-value text-blue">0</div>
-                    <div class="stat-label">Expected Value</div>
+                    <div class="stat-label" title="Average profit or loss per trade">Expected Value</div>
                 </div>
                 
                 <div id="riskreward" class="stat-tile">
                     <div id="riskrewardvalue" class="stat-value text-blue">1</div>
-                    <div class="stat-label">Risk / Reward</div>
+                    <div class="stat-label" title="The ratio of win amount to loss amount">Risk / Reward</div>
                 </div>
                             
                 
                 <div id="totalcommission" class="stat-tile">
                     <div id="totalcommissionvalue" class="stat-value text-light">$0</div>
-                    <div class="stat-label">Fees Paid</div>
+                    <div class="stat-label" title="Total amount of fess paid">Fees Paid</div>
                 </div>
             </div>
 
-            <div id="graph-section">
-                <div id="graph-tabs">
-                    <div class="graph-tab active">Balance Graph</div>
+            <div id="graphsection">
+                <div id="graphtabs">
+                    <div class="graphtab active">Balance Graph</div>
                 </div>
 
                 <div id="chart-placeholder">
