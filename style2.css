@@ -6,16 +6,16 @@
     --bg-body: #F7F9FC;      
     --bg-window: #FFFFFF;
     --text-main: #2B2B2B;    
-    --text-light: #6E7C91;
+    --lighttext: #6E7C91;
     --success: #27AE60;
     --danger: #EB5757;
     --shadow: 0 10px 30px rgba(26, 43, 95, 0.08);
     --radius-pill: 5px;
     --window-bg: #FAFBFC;
-    --window-border: #EDF0F5;
+    --window-border: #d2d4d8;
     --input-bg: #FAFBFC;
     --input-border: #E0E6ED;
-    --muted-bg: #EDF0F5;
+    --button-bg: #EDF0F5;
     --window-gradient-start: #ffffff;
     --window-gradient-end: #F7F9FC;
     --inputfocus: #FFFFFF;
@@ -39,7 +39,7 @@ body {
     min-height: 100vh;
 }
 
-body.dark-mode {
+body.dark {
     --primary: #9BD7D0;
     --accent: #4ADBB3;
     --accent-hover: #39BFA0;
@@ -54,7 +54,7 @@ body.dark-mode {
     --window-border: rgba(255,255,255,0.06);
     --input-bg: #0b1220;
     --input-border: rgba(255,255,255,0.06);
-    --muted-bg: rgba(255,255,255,0.02);
+    --button-bg: rgba(255,255,255,0.02);
     --window-gradient-start: #0d1320;
     --window-gradient-end: #0b1220;
     --inputfocus: #1a2533;
@@ -64,7 +64,7 @@ body.dark-mode {
 }
 
 
-header {
+#topbar {
     background: var(--bg-window);
     position: sticky;
     top: 0;
@@ -103,7 +103,7 @@ header {
     transition: left 0.2s ease;
 }
 
-header::after {
+#topbar::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -113,7 +113,7 @@ header::after {
     background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 
-#brand {
+#title {
     font-weight: 700;
     font-size: 1.2rem;
     color: var(--primary);
@@ -124,7 +124,8 @@ header::after {
 }
 
 #container {
-    max-width: 1200px;
+    width: 1200px;
+    max-width: 90%;
     margin: 2rem auto;
     display: grid;
     grid-template-columns: 350px 1fr; 
@@ -157,21 +158,21 @@ h2 {
     gap: .7rem;
 }
 
-.input-group {
+.inputgroup {
     display: flex;
     flex-direction: column;
 }
 
-.input-group label {
+.inputgroup label {
     font-size: 0.85rem;
-    color: var(--text-light);
+    color: var(--lighttext);
     margin-bottom: 0.4rem;
     display: flex;
     justify-content: space-between;
 }
 
 
-.input-wrapper {
+.inputwrapper {
     position: relative;
 }
 
@@ -252,40 +253,53 @@ input[type="range"]:focus {
     right: 15px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--text-light);
+    color: var(--lighttext);
     font-size: 0.8rem;
     pointer-events: none;
 }
 
 
-.mode-switch {
-    background: var(--muted-bg);
+#modeswitch {
+    position: relative;
+    background: var(--button-bg);
     padding: 4px;
     border-radius: var(--radius-pill);
     display: flex;
     margin: 1rem 0;
-    user-select: none;
 }
 
-.mode-option {
+#switchbg {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
+    background: var(--bg-window);
+    border-radius: var(--radius-pill);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.3s cubic-bezier(.02,.34,.4,1.04);
+    z-index: 0;
+}
+
+.option {
     flex: 1;
     text-align: center;
     padding: 8px;
     font-size: 0.85rem;
     cursor: pointer;
     border-radius: var(--radius-pill);
-    color: var(--text-light);
+    color: var(--lighttext);
+    transition: color 0.3s;
+    z-index: 1;
 }
 
-.mode-option.active {
-    background: var(--bg-window);
+.option.active {
     color: var(--accent);
     font-weight: 600;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-
 #calculate {
+    user-select: none;
     width: 100%;
     padding: 1rem;
     border: none;
@@ -312,30 +326,30 @@ input[type="range"]:focus {
     gap: 5px;
     margin-top: 10px;
 }
-.preset-tag {
+.presettag {
     text-align: center;
     width: 33%;
     font-size: 0.8rem;
-    background: var(--muted-bg);
+    background: var(--button-bg);
     padding: 2px 8px;
     border-radius: 5px;
     cursor: pointer;
-    color: var(--text-light);
+    color: var(--lighttext);
 }
-.preset-tag:hover { background: var(--inputfocus); color: var(--primary); }
+.presettag:hover { background: var(--inputfocus); color: var(--primary); }
 
 
 
 
 
-#stats-grid {
+#statsgrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     margin-bottom: 2rem;
 }
 
-.stat-tile {
+.stattile {
     background: var(--window-bg);
     padding: 1rem;
     border-radius: 2px;
@@ -345,29 +359,30 @@ input[type="range"]:focus {
     overflow: hidden;
 }
 
-.stat-tile:hover {
+.stattile:hover {
     scale: 1.04;
 
 }
 
-.stat-value {
+.statvalue {
     font-size: 1.4rem;
     font-weight: 700;
     margin-bottom: 0.2rem;
+    transition: color 0.2s;
 }
 
 .stat-label {
     font-size: 0.75rem;
-    color: var(--text-light);
+    color: var(--lighttext);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     user-select: none;
 }
 
-.text-green { color: var(--success); }
-.text-red { color: var(--danger); }
-.text-blue { color: var(--primary); }
-.text-light { color: var(--text-light); } 
+.greentext { color: var(--success); }
+.redtext { color: var(--danger); }
+.bluetext { color: var(--primary); }
+.lighttext { color: var(--lighttext); } 
 
 
 
@@ -375,7 +390,7 @@ input[type="range"]:focus {
     background: var(--window-bg);
     margin-bottom: 1.5rem;
     position: relative;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border: 1px solid var(--window-border);
     padding: 20px;
     border-radius: 10px;
 }
@@ -389,7 +404,7 @@ input[type="range"]:focus {
 
 .graphtab {
     padding-bottom: 0.5rem;
-    color: var(--text-light);
+    color: var(--lighttext);
     cursor: pointer;
     font-size: 0.9rem;
     position: relative;
@@ -437,7 +452,7 @@ input::-webkit-inner-spin-button {
 }
 
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
     #container {
         grid-template-columns: 1fr;
     }
@@ -445,29 +460,32 @@ input::-webkit-inner-spin-button {
 }
 
 @media (max-width: 600px) {
-    #stats-grid {
+    #statsgrid {
         grid-template-columns: 1fr 1fr;
     }
     #chart-placeholder {
         height: 300px;
     }
 
-    #brand{
-        display:none; 
-    }
     #bgbutton{
         margin: 1rem 2rem;
     }
-    header {
-        flex-direction: column;
-        justify-content: end;
-        gap: 1rem;
-    }
+
     nav a { margin: 0 10px; }
-    .stat-value{
+    .statvalue{
         font-size: 4vw;
     }
     .stat-label{
         font-size: 2.5vw;
     }
+
+    #title{
+        font-size: 0;
+        scale: 1.5;
+    }
+
+    #bgbutton{
+        scale: 0.8;
+    }
 }
+

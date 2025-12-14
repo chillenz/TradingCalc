@@ -43,7 +43,14 @@ Website Demo
 **Storage:** LocalStorage
 ## Change Logs
 
-**version 2.3 (Current)**
+**Version 2.4 (Current)**
+- Updated calculation logic
+- Changed chart color
+- Improved mobile UI
+- Win/loss amount -> Win/loss return
+- Added number animation and sliding animation
+
+**Version 2.3 (Current)**
 - Fixed shadow
 - Fixed chart border
 - Added tooltips for results
