@@ -55,6 +55,11 @@ Website Demo
 **Storage:** LocalStorage
 ## Change Logs
 
+**Version 3.1 (current)**
+- Fixed position size page in mobile
+- Fixed theme toggle overlap with mobile nav bar
+- Updated strategy calculator size in mobile
+
 **Version 3 (current)**
 - Added position size calculator
 - Fixed trade # in chart

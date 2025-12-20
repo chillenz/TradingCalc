@@ -352,7 +352,6 @@ document.addEventListener('DOMContentLoaded', () => {
         evPerTrade = profitloss / numberoftrades;
 
         const charthistory = []
-        console.log(numberoftrades)
         for (let i = 0; i < numberoftrades; i+=Math.max(300, numberoftrades)/300) {
             charthistory.push(balancehistory[Math.round(i)]);
         }

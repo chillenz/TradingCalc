@@ -326,6 +326,11 @@ input[type="range"]:focus {
     align-items: center;
 }
 
+#calculatesize:hover, #calculate:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 3px 15px rgba(25, 212, 195, 0.4);
+}
+
 .btn-calc:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(25, 212, 195, 0.4);
@@ -556,6 +561,7 @@ body::-webkit-scrollbar, body::-webkit-scrollbar-button { display: none; }
     flex-shrink: 0;
     color: var(--primary);
     font-weight: 600; 
+    background-color: var(--window-bg);
 }
 
 #sizecontent {
@@ -568,13 +574,13 @@ body::-webkit-scrollbar, body::-webkit-scrollbar-button { display: none; }
 
 #sizeinputsection, #sizeresultsection{
     width: 50%;
-    border: 1px solid var(--window-border);
     padding: 1.5rem;
 }
 
 #sizeinputsection{
     display: flex;
     flex-direction: column;
+    border-right: 1px solid var(--window-border);
     gap: .7rem;
 }
 
@@ -614,9 +620,22 @@ body::-webkit-scrollbar, body::-webkit-scrollbar-button { display: none; }
 @media (max-width: 1000px) {
     #container {
         grid-template-columns: 1fr;
+        width: 600px;
     }
     
-}
+    #sizeinputsection, #sizeresultsection{
+        width: 100%;
+        border: none;
+    }
+
+    #sizeresultsection{
+        gap: 10px;
+    }
+
+    #sizecontainer{
+        width: 500px;
+    }
+}   
 
 @media (max-width: 600px) {
     #statsgrid {
@@ -642,6 +661,10 @@ body::-webkit-scrollbar, body::-webkit-scrollbar-button { display: none; }
     #borgor{
         font-size: 25px;
         margin-left: -50px;
+    }
+
+    #bgbutton{
+        bottom: 70px;
     }
 }
 
