@@ -13,6 +13,7 @@
     
     <header id="topbar">
         <div id="title">
+            <span id="borgor">☰</span>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="2" y="13" width="4" height="9" rx="1" fill="#1A2B5F" id="leg1"/>
                 <rect x="10" y="6" width="4" height="16" rx="1" fill="#19D4C3"/>
@@ -20,143 +21,221 @@
             </svg>
             Trading Strategy Calculator
         </div>
+    </header>
+
+    <div id="mainpage">        
+        <div id="container">
+            <section id="variablesection">
+                <h2>Strategy Inputs</h2> 
+                <div id="variablecontainer">
+                    
+                    <div id="winrate" class="inputgroup">
+                        <label>Win Rate (%)</label>
+                        <div class="inputwrapper">
+                            <input type="number" id="winrateinput" value="50">
+                            <span class="suffix">%</span>
+                        </div>
+                    </div>
+
+                    <div id="winamount" class="inputgroup">
+                        <label>Win Return (%) <span title="average % gain on winning trade">i</span></label>
+                        <div class="inputwrapper">
+                            <input type="number" id="winamountinput" value="5">
+                            <span class="suffix">%</span>
+                        </div>
+                    </div>
+
+                    <div id="lossamount" class="inputgroup">
+                        <label>Loss Return (%) <span title="Average % loss on losing trade">i</span></label>
+                        <div class="inputwrapper">
+                            <input type="number" id="lossamountinput" value="3">
+                            <span class="suffix">%</span>
+                        </div>
+                    </div>
+
+                    <div id="startbalance" class="inputgroup">
+                        <label>Starting Balance ($)</label>
+                        <div class="inputwrapper">
+                            <input type="number" id="startbalanceinput" value="1000">
+                            <span class="suffix">$</span>
+                        </div>
+                    </div>
+                    
+                    <div id="numberoftrades" class="inputgroup">
+                        <label>Number of Trades</label>
+                        <div class="inputwrapper">
+                            <input type="number" id="numberoftradesinput" value="1000">
+                        </div>
+                        <div id="presetscontainer">
+                            <span class="presettag">100</span>
+                            <span class="presettag">1k</span>
+                            <span class="presettag">10k</span>
+                        </div>
+                    </div>
+                    
+                    <div id="positionsize" class="inputgroup">
+                        <label>Position Size</label>
+                        <div class="inputwrapper">
+                            <input type="range" id="positionsizeinput" min="0" max="100" value="20" step="5">
+                            <span class="suffix" id="inputvaluetext">20% Bal</span>
+                        </div>
+                    </div>
+                    
+                    <div id="commission" class="inputgroup">
+                        <label>Commission</label>
+                        <div class="inputwrapper">
+                            <input type="number" id="commissioninput" value="0.1">
+                            <span class="suffix">%</span>
+                        </div>
+                    </div>
+                    
+                    <div id="modeswitch">
+                        <div id="switchbg"></div>
+                        <div class="option active" id="expectedvaluebutton">Expected Value</div>
+                        <div class="option" id="randombutton">Monte Carlo</div>
+                    </div>
+                    
+                    <button id="calculate">
+                        Calculate
+                    </button>
+                    <div id="error" style="display:none;color:#e61c3d;margin-top:8px;font-size:0.9rem;">Please fill all inputs correctly.</div>
+
+                </div>
+            </section>
+
+            <section id="resultsection">
+                
+                <h2>Performance Results</h2> 
+                
+                <div id="statsgrid">    
+                    <div id="endbalance" class="stattile">
+                        <div id="endbalancevalue" class="statvalue greentext">$0</div>
+                        <div id="endbalancetitle" class="statlabel" title="Account capital after all trades">Ending Balance</div>
+                    </div>
+
+                    <div id="profitloss" class="stattile">
+                        <div id="profitlossvalue" class="statvalue greentext">+$0</div>
+                        <div class="statlabel" title="Total profit/loss after all trades">Total P/L</div>
+                    </div>
+                    
+                    <div class="stattile" id="accountrisk">
+                        <div id="accountriskpercent" class="statvalue redtext">0%</div>
+                        <div class="statlabel" title="% of account risked on each trade">Account Risk</div>
+                    </div>
+
+                    <div id="expectedvalue" class="stattile">
+                        <div id="expectedvaluevalue" class="statvalue bluetext">0</div>
+                        <div class="statlabel" title="Average profit or loss per trade">Expected Value</div>
+                    </div>
+                    
+                    <div id="riskreward" class="stattile">
+                        <div id="riskrewardvalue" class="statvalue bluetext">1</div>
+                        <div class="statlabel" title="The ratio of win amount to loss amount">Risk / Reward</div>
+                    </div>
+                                
+                    
+                    <div id="totalcommission" class="stattile">
+                        <div id="totalcommissionvalue" class="statvalue lighttext">$0</div>
+                        <div class="statlabel" title="Total amount of fess paid">Fees Paid</div>
+                    </div>
+                </div>
+
+                <div id="graphsection">
+                    <div id="graphtabs">
+                        <div class="graphtab active">Balance Graph</div>
+                    </div>
+
+                    <div id="chart-placeholder">
+                        <canvas id="chart" style="position:absolute;left:0;top:0;width:100%;height:100%;"></canvas>
+                        <svg class="mock-svg" viewBox="0 0 500 200" preserveAspectRatio="none">
+                            
+                        </svg>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+    <div id="darkscreen"></div>
+    <div id="sidebar">
+        <div id="navmain" class="nav currentpage">Strategy calculator</div>
+        <div id="navsize" class="nav">Position Size calculator</div>
         <div id="bgbutton">
             <div id="circle"></div>
         </div>
-    </header>
+    </div>
 
-    <main id="container">
-        <section id="variablesection">
-            <h2>Strategy Inputs</h2> 
-            <div id="variablecontainer">
-                
-                <div id="winrate" class="inputgroup">
-                    <label>Win Rate (%)</label>
-                    <div class="inputwrapper">
-                        <input type="number" id="winrateinput" value="50">
-                        <span class="suffix">%</span>
-                    </div>
-                </div>
+    <div id="sizepage">
+        <div id="sizecontainer">
+            <div id="sizetitle">Position Size Calculator</div>
+            <div id="sizecontent">
+                <div id="sizeinputsection">
 
-                <div id="winamount" class="inputgroup">
-                    <label>Win Return (%) <span title="average % gain on winning trade">i</span></label>
-                    <div class="inputwrapper">
-                        <input type="number" id="winamountinput" value="5">
-                        <span class="suffix">%</span>
+                    <div id="accsize" class="inputgroup">
+                        <label>Account Size ($)</label>
+                        <div class="inputwrapper">
+                            <input type="number" id="accsizeinput" value="10000">
+                            <span class="suffix">$</span>
+                        </div>
                     </div>
-                </div>
 
-                <div id="lossamount" class="inputgroup">
-                    <label>Loss Return (%) <span title="Average % loss on losing trade">i</span></label>
-                    <div class="inputwrapper">
-                        <input type="number" id="lossamountinput" value="3">
-                        <span class="suffix">%</span>
+                    <div id="stoploss" class="inputgroup">
+                        <label>Stop Loss (%) <span title="loss return in %">i</span></label>
+                        <div class="inputwrapper">
+                            <input type="number" id="stoplossinput" value="3">
+                            <span class="suffix">%</span>
+                        </div>
                     </div>
-                </div>
 
-                <div id="startbalance" class="inputgroup">
-                    <label>Starting Balance ($)</label>
-                    <div class="inputwrapper">
-                        <input type="number" id="startbalanceinput" value="1000">
-                        <span class="suffix">$</span>
-                    </div>
-                </div>
-                
-                <div id="numberoftrades" class="inputgroup">
-                    <label>Number of Trades</label>
-                    <div class="inputwrapper">
-                        <input type="number" id="numberoftradesinput" value="1000">
-                    </div>
-                    <div id="presetscontainer">
-                        <span class="presettag">100</span>
-                        <span class="presettag">1k</span>
-                        <span class="presettag">10k</span>
-                    </div>
-                </div>
-                
-                <div id="positionsize" class="inputgroup">
-                    <label>Position Size</label>
-                    <div class="inputwrapper">
-                        <input type="range" id="positionsizeinput" min="0" max="100" value="20" step="5">
-                        <span class="suffix" id="inputvaluetext">20% Bal</span>
-                    </div>
-                </div>
-                
-                <div id="commission" class="inputgroup">
-                    <label>Commission</label>
-                    <div class="inputwrapper">
-                        <input type="number" id="commissioninput" value="0.1">
-                        <span class="suffix">%</span>
-                    </div>
-                </div>
-                
-                <div id="modeswitch">
-                    <div id="switchbg"></div>
-                    <div class="option active" id="expectedvaluebutton">Expected Value</div>
-                    <div class="option" id="randombutton">Monte Carlo</div>
-                </div>
-                
-                <button id="calculate">
-                    Calculate
-                </button>
-                <div id="error" style="display:none;color:var(--danger);margin-top:8px;font-size:0.9rem;">Please fill all inputs correctly.</div>
+                    <button id="calculatesize">
+                        Calculate
+                    </button>
 
-            </div>
-        </section>
+                    <div id="errorsize" style="display:none;color:#e61c3d;margin-top:8px;font-size:0.9rem;">Please fill all inputs correctly.</div>
 
-        <section id="resultsection">
-            
-            <h2>Performance Results</h2> 
-            
-            <div id="statsgrid">    
-                <div id="endbalance" class="stattile">
-                    <div id="endbalancevalue" class="statvalue greentext">$0</div>
-                    <div id="endbalancetitle" class="stat-label" title="Account capital after all trades">Ending Balance</div>
                 </div>
+                <div id="sizeresultsection">
 
-                <div id="profitloss" class="stattile">
-                    <div id="profitlossvalue" class="statvalue greentext">+$0</div>
-                    <div class="stat-label" title="Total profit/loss after all trades">Total P/L</div>
-                </div>
-                
-                <div class="stattile" id="accountrisk">
-                    <div id="accountriskvalue" class="statvalue redtext">0%</div>
-                    <div class="stat-label" title="% of account risked on each trade">Account Risk</div>
-                </div>
+                    <div id="conservativesize" class="sizetile">
+                        <div class="riskpercent">
+                            <h3 class="lighttext">CONSERVATIVE</h3>
+                            <h3>0.5% Risk</h3>
+                        </div>
+                        <div class="sizevalue">
+                            <h3 class="lighttext">Position Size</h3>
+                            <h3 class="greentext riskvalue">$0.00</h3>
+                        </div>
+                    </div>
 
-                <div id="expectedvalue" class="stattile">
-                    <div id="expectedvaluevalue" class="statvalue bluetext">0</div>
-                    <div class="stat-label" title="Average profit or loss per trade">Expected Value</div>
-                </div>
-                
-                <div id="riskreward" class="stattile">
-                    <div id="riskrewardvalue" class="statvalue bluetext">1</div>
-                    <div class="stat-label" title="The ratio of win amount to loss amount">Risk / Reward</div>
-                </div>
-                            
-                
-                <div id="totalcommission" class="stattile">
-                    <div id="totalcommissionvalue" class="statvalue lighttext">$0</div>
-                    <div class="stat-label" title="Total amount of fess paid">Fees Paid</div>
+                    <div id="standardsize" class="sizetile">
+                        <div class="riskpercent">
+                            <h3 class="lighttext">STANDARD</h3>
+                            <h3>1.0% Risk</h3>
+                        </div>
+                        <div class="sizevalue">
+                            <h3 class="lighttext">Position Size</h3>
+                            <h3 class="riskvalue" style="color: #ffbf00;">$0.00</h3>
+                        </div>
+                    </div>
+
+                    <div id="aggressivesize" class="sizetile">
+                        <div class="riskpercent">
+                            <h3 class="lighttext">AGGRESSIVE</h3>
+                            <h3>2.0% Risk</h3>
+                        </div>
+                        <div class="sizevalue">
+                            <h3 class="lighttext">Position Size</h3>
+                            <h3 class="redtext riskvalue">$0.00</h3>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
-
-            <div id="graphsection">
-                <div id="graphtabs">
-                    <div class="graphtab active">Balance Graph</div>
-                </div>
-
-                <div id="chart-placeholder">
-                    <canvas id="chart" style="position:absolute;left:0;top:0;width:100%;height:100%;"></canvas>
-                    <svg class="mock-svg" viewBox="0 0 500 200" preserveAspectRatio="none">
-                        
-                    </svg>
-                </div>
-            </div>
-
-        </section>
-
-    </main>
+        </div>
+    </div>
 
 
 

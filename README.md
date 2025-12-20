@@ -1,9 +1,15 @@
 
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Chart.js](https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white)
 # Trading Strategy Calculator
 
-Trading Strategy Calculator is a website based tool for testing and analyzing your trading strategy based on parameters like win rates and commission with methods like expected value and Monte Carlo simulation.
+This is a website based tool for testing and analyzing your trading strategy based on parameters like win rates and commission with methods like expected value and Monte Carlo simulation. It can also do other things like calculate optimal position size.
 
-## Input Parameters
+
+
+## Strategy Input Parameters
 
 | Parameters             | Description                                                                |
 | ----------------- | ------------------------------------------------------------------ |
@@ -16,7 +22,7 @@ Trading Strategy Calculator is a website based tool for testing and analyzing yo
 | Commission | Fee per trade |
 | Calculation Mode | How each trade's result is determined |
 
-## Outputs
+## Strategy Outputs
 | Parameters             | Description                                                                |
 | ----------------- | ------------------------------------------------------------------ |
 | Ending Balance | Account capital after all trades |
@@ -27,8 +33,14 @@ Trading Strategy Calculator is a website based tool for testing and analyzing yo
 | Fees Paid | Total amount of fees paid after all trades |
 | Balance Graph | Equity curve of account balance over time |
 
-## Demo
+## Features
+- **Multiple Calculation Modes**: Expected Value and Monte Carlo Simulation
+- **Risk management**: Optimal position sizing calculator
+- **Visualization**: Interactive equity curve with chart.js
+- **Responsive design**: Works on desktop and mobile devices
+- **Dark/Light Mode**: Toggle between themes for comfortable viewing
 
+## Demo
 Website Demo
 
 ![demo video](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjcwdzd1bWdjejQ0ZmhzNG8wNDRpMHAxMW1hdmNnNDJxMW1sZnNlciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FOUJMfx8eeSMPz69N7/giphy.gif)
@@ -43,14 +55,20 @@ Website Demo
 **Storage:** LocalStorage
 ## Change Logs
 
-**Version 2.4 (Current)**
+**Version 3 (current)**
+- Added position size calculator
+- Fixed trade # in chart
+- Added hamburger and sidebar
+- Moved dark mode toggle to sidebar
+
+**Version 2.4**
 - Updated calculation logic
 - Changed chart color
 - Improved mobile UI
 - Win/loss amount -> Win/loss return
 - Added number animation and sliding animation
 
-**Version 2.3 (Current)**
+**Version 2.3**
 - Fixed shadow
 - Fixed chart border
 - Added tooltips for results
