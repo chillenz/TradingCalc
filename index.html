@@ -160,10 +160,41 @@
 
     <div id="darkscreen"></div>
     <div id="sidebar">
-        <div id="navmain" class="nav currentpage">Strategy calculator</div>
-        <div id="navsize" class="nav">Position Size calculator</div>
-        <div id="bgbutton">
-            <div id="circle"></div>
+        <div id="navmain" class="nav currentpage">
+            <svg viewBox="0 0 24 24" class="navicon">
+                <polyline points="3,17 9,11 13,15 21,7"
+                    fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span>Strategy calculator</span>
+        </div>
+
+        <div id="navsize" class="nav">
+            <svg viewBox="0 0 24 24" class="navicon">
+                <line x1="5" y1="19" x2="19" y2="5"
+                    stroke="currentColor" stroke-width="2"/>
+                <circle cx="7" cy="7" r="2"
+                    fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="17" cy="17" r="2"
+                    fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span>Position Size calculator</span>
+        </div>
+
+        <div id="setting">
+            <span>Theme Mode</span>
+            <div class="bgbutton" id="themetoggle">
+                <div class="circle" id="themecircle"></div>
+            </div>
+            
+            <span>Instant Update</span>
+            <div class="bgbutton" id="updatetoggle">
+                <div class="circle" id="updatecircle"></div>
+            </div>
+
+            <span>Animations</span>
+            <div class="bgbutton" id="animationtoggle">
+                <div class="circle" id="animationcircle"></div>
+            </div>
         </div>
     </div>
 
@@ -176,7 +207,7 @@
                     <div id="accsize" class="inputgroup">
                         <label>Account Size ($)</label>
                         <div class="inputwrapper">
-                            <input type="number" id="accsizeinput" value="10000">
+                            <input type="number" id="accsizeinput" class='sizeinput' value="10000">
                             <span class="suffix">$</span>
                         </div>
                     </div>
@@ -184,7 +215,7 @@
                     <div id="stoploss" class="inputgroup">
                         <label>Stop Loss (%) <span title="loss return in %">i</span></label>
                         <div class="inputwrapper">
-                            <input type="number" id="stoplossinput" value="3">
+                            <input type="number" id="stoplossinput" class='sizeinput' value="3">
                             <span class="suffix">%</span>
                         </div>
                     </div>

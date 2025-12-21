@@ -55,7 +55,12 @@ Website Demo
 **Storage:** LocalStorage
 ## Change Logs
 
-**Version 3.1 (current)**
+**Version 3.2 (current)**
+- Changed from vh to dvh to account for bookmarks and bars
+- Added icon for each navigation
+- Added settings
+
+**Version 3.1**
 - Fixed position size page in mobile
 - Fixed theme toggle overlap with mobile nav bar
 - Updated strategy calculator size in mobile

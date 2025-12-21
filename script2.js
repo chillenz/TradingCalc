@@ -17,8 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const positionsizeinput = document.getElementById('positionsizeinput');
     const inputvaluetext = document.getElementById('inputvaluetext');
 
-    const bgbutton = document.getElementById('bgbutton');
-    const circle = document.getElementById('circle');
+    const themetoggle = document.getElementById('themetoggle');
+    const themecircle = document.getElementById('themecircle');
+    const updatetoggle = document.getElementById('updatetoggle');
+    const updatecircle = document.getElementById('updatecircle');
+    const animationtoggle = document.getElementById('animationtoggle');
+    const animationcircle = document.getElementById('animationcircle');
 
     const indicator = document.getElementById('switchbg');
     
@@ -35,6 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const calculatesize = document.getElementById('calculatesize');
     const errorsize = document.getElementById('errorsize')
     const riskvaluestext = Array.from(document.querySelectorAll('.riskvalue'));
+    
+    const inputs = Array.from(document.querySelectorAll('input'));
 
     navmain.addEventListener('click', () => {
         navsize.classList.remove('currentpage')
@@ -51,6 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     let bgmode = localStorage.getItem('mode') || 'dark';
+    let autoupdate = localStorage.getItem('update') === 'true';
+    let animate = localStorage.getItem('animate') === 'true';
 
     let prevendbalance = 0;
     let prevEV = 0;
@@ -111,32 +119,93 @@ document.addEventListener('DOMContentLoaded', () => {
         if (bgmode === 'dark') {
             document.body.classList.add('dark');
             gridcolor = 'rgba(179, 179, 179, 0.1)';
-            if (circle) circle.style.left = '30px';
-            if (bgbutton) {
-                bgbutton.style.backgroundColor = '#1c2731ff';
+            if (themecircle) themecircle.style.left = '24px';
+            if (themetoggle) {
+                themetoggle.style.backgroundColor = '#1c2731ff';
                 leg1.style.fill = 'white';
                 leg2.style.fill = 'white';
+            }
+            if (updatetoggle && animationtoggle) {
+                updatetoggle.style.backgroundColor = '#1c2731ff';
+                animationtoggle.style.backgroundColor = '#1c2731ff';
             }
         } else {
             document.body.classList.remove('dark');
             gridcolor = 'rgba(0, 0, 0, 0.18)';
-            if (circle) circle.style.left = '0px';
-            if (bgbutton) {
-                bgbutton.style.backgroundColor = '#e0e0e0';
+            if (themecircle) themecircle.style.left = '0px';
+            if (themetoggle) {
+                themetoggle.style.backgroundColor = '#e0e0e0';
                 leg1.style.fill = '#1A2B5F';
                 leg2.style.fill = '#1A2B5F';
+            }
+            if (updatetoggle && animationtoggle) {
+                updatetoggle.style.backgroundColor = '#e0e0e0';
+                animationtoggle.style.backgroundColor = '#e0e0e0';
             }
         }
         try { localStorage.setItem('mode', bgmode); } catch (e) {}
     }
 
-    if (bgbutton) {
-        bgbutton.addEventListener('click', () => {
+    if (themetoggle) {
+        themetoggle.addEventListener('click', () => {
             changebg(bgmode === 'light' ? 'dark' : 'light');
         });
     }
 
+    function toggleupdate(){
+        if (autoupdate === false){
+            updatecircle.style.left = '24px';
+            updatecircle.style.backgroundColor = '#14B5A7'
+            autoupdate = true;
+        } else{
+            updatecircle.style.left = '0px';
+            updatecircle.style.backgroundColor = 'gray'
+            autoupdate = false;     
+        }
+        try { localStorage.setItem('update', autoupdate); } catch (e) {}
+    }
+
+    function toggleanimation(){
+        if (animate === false){
+            animationcircle.style.left = '24px';
+            animationcircle.style.backgroundColor = '#14B5A7'
+            animate = true;
+        } else{
+            animationcircle.style.left = '0px';
+            animationcircle.style.backgroundColor = 'gray'
+            animate = false;     
+        }
+        try { localStorage.setItem('animate', animate); } catch (e) {}
+    }
+
+    if (updatetoggle){
+        updatetoggle.addEventListener('click', () => {
+            toggleupdate();
+        });
+    }
+
+    if (animationtoggle){
+        animationtoggle.addEventListener('click', () => {
+            toggleanimation();
+        });
+    }
+
     
+
+    if (autoupdate === false){
+        updatecircle.style.left = '0px';
+        updatecircle.style.backgroundColor = 'gray'
+    } else{
+        updatecircle.style.left = '24px';
+        updatecircle.style.backgroundColor = '#14B5A7'
+    }
+    if (animate === false){
+        animationcircle.style.left = '0px';
+        animationcircle.style.backgroundColor = 'gray'
+    } else{
+        animationcircle.style.left = '24px';
+        animationcircle.style.backgroundColor = '#14B5A7'
+    }
     changebg(bgmode);
 
     let mode = 'ev';
@@ -152,6 +221,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 numberoftradesinput.value = val;
             }
         });
+    });
+
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            if (autoupdate === true){   
+                if (input.classList.contains('sizeinput')){
+                    updatecalculationsize()
+                } else{
+                    updatecalculation()
+                }
+            }
+        })
     });
 
     evbutton.addEventListener('click', () => {
@@ -186,6 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         borderWidth: 2,
                         backgroundColor: 'rgba(25, 212, 196, 1)',
                         borderColor: 'rgba(25, 212, 196, 1)',
+                        tension: 0.2,
                     },
                     {
                         label: 'Initial Balance',
@@ -258,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    calculate.addEventListener('click', () => {
+    function updatecalculation(){
         let winrate = parseFloat(document.getElementById('winrateinput').value);
         let winamount = parseFloat(document.getElementById('winamountinput').value);
         let lossamount = parseFloat(document.getElementById('lossamountinput').value);
@@ -359,39 +441,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
         drawChart(charthistory, startbalance, numberoftrades);
 
-        valueanimation(endbalancetext,prevendbalance,endbalance,v => '$' + magnitude(v));
+        if (animate) {
+            valueanimation(endbalancetext,prevendbalance,endbalance,v => '$' + magnitude(v));
+        } else {
+            endbalancetext.textContent = '$' + magnitude(endbalance);
+        }
         prevendbalance = endbalance;
 
-        valueanimation(evtext,prevEV,evPerTrade,v => '$' + magnitude(v));
+        if (animate) {
+            valueanimation(evtext,prevEV,evPerTrade,v => '$' + magnitude(v));
+        } else {
+            evtext.textContent = '$' + magnitude(evPerTrade);
+        }
         prevEV = evPerTrade;
 
         if (isFinite(riskreward)) {
-            valueanimation(riskrewardtext,prevrr,riskreward,v => magnitude(v));
+            if (animate) {
+                valueanimation(riskrewardtext,prevrr,riskreward,v => magnitude(v));
+            } else {
+                riskrewardtext.textContent = magnitude(riskreward);
+            }
             prevrr = riskreward;
         } else {
             riskrewardtext.textContent = '—';
             prevrr = 0;
         }
 
-        valueanimation(
-            totalcommissionstext,
-            prevcomm,
-            totalcommission,
-            v => '$' + magnitude(v)
-        );
+        if (animate) {
+            valueanimation(
+                totalcommissionstext,
+                prevcomm,
+                totalcommission,
+                v => '$' + magnitude(v)
+            );
+        } else {
+            totalcommissionstext.textContent = '$' + magnitude(totalcommission);
+        }
         prevcomm = totalcommission;
 
         const accountRisk = positionsize * lossamount / 10000 * 100;
-        valueanimation(accountriskvalue,prevaccountrisk,accountRisk,v => v.toFixed(2) + '%');
+        if (animate) {
+            valueanimation(accountriskvalue,prevaccountrisk,accountRisk,v => v.toFixed(2) + '%');
+        } else {
+            accountriskvalue.textContent = accountRisk.toFixed(2) + '%';
+        }
         prevaccountrisk = accountRisk;
 
         const absProfitLoss = Math.abs(profitloss);
-        valueanimation(profitlosstext,Math.abs(prevpl),absProfitLoss,
-            v => {
-                const prefix = profitloss > 0 ? '+$' : profitloss < 0 ? '-$' : '$';
-                return prefix + magnitude(v);
-            }
-        );
+        const prefix = profitloss > 0 ? '+$' : profitloss < 0 ? '-$' : '$';
+        if (animate) {
+            valueanimation(profitlosstext,Math.abs(prevpl),absProfitLoss,
+                v => {
+                    return prefix + magnitude(v);
+                }
+            );
+        } else {
+            profitlosstext.textContent = prefix + magnitude(absProfitLoss);
+        }
         prevpl = profitloss;
 
         
@@ -409,9 +515,11 @@ document.addEventListener('DOMContentLoaded', () => {
             profitlosstext.classList.remove('greentext', 'redtext');
             endbalancetext.classList.remove('greentext', 'redtext');
         }
-    });
+    }
 
-    calculatesize.addEventListener('click', () => {
+    calculate.addEventListener('click', () => {updatecalculation()});
+
+    function updatecalculationsize(){
         accsize = parseFloat(document.getElementById('accsizeinput').value);
         stoploss = parseFloat(document.getElementById('stoplossinput').value);
         console.log(accsize, stoploss)
@@ -427,16 +535,22 @@ document.addEventListener('DOMContentLoaded', () => {
         riskvalues.push(accsize / stoploss)
         riskvalues.push(accsize * 2 / stoploss)
         current = 0
-        riskvaluestext.forEach(t => {
-            valueanimation(
-                t,
-                prevriskvalues[current],
-                riskvalues[current],
-                v => '$' + magnitude(v)
-            );
-            current+=1
-        });
+            riskvaluestext.forEach(t => {
+                if (animate) {
+                    valueanimation(
+                        t,
+                        prevriskvalues[current],
+                        riskvalues[current],
+                        v => '$' + magnitude(v)
+                    );
+                } else {
+                    t.textContent = '$' + magnitude(riskvalues[current]);
+                }
+                current+=1
+            });
 
         prevriskvalues = riskvalues
-    });
+    }
+
+    calculatesize.addEventListener('click', () => {updatecalculationsize()});
 });
