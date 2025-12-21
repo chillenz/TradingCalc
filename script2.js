@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const riskrewardtext = document.getElementById('riskrewardvalue');
     const totalcommissionstext = document.getElementById('totalcommissionvalue');
     const numberoftradesinput = document.getElementById('numberoftradesinput');
-    const accountriskvalue = document.getElementById('accountriskvalue');
+    const accountriskvalue = document.getElementById('accountrisk');
     const error = document.getElementById('error');
     const leg1 = document.getElementById('leg1');
     const leg2 = document.getElementById('leg2');
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let bgmode = localStorage.getItem('mode') || 'dark';
     let autoupdate = localStorage.getItem('update') === 'true';
-    let animate = localStorage.getItem('animate') === 'true';
+    let animate = localStorage.getItem('animate') ? localStorage.getItem('animate') === 'true' : true;
 
     let prevendbalance = 0;
     let prevEV = 0;
@@ -220,6 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (val > 0) {
                 numberoftradesinput.value = val;
             }
+            if (autoupdate) updatecalculation();
         });
     });
 
@@ -240,6 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
         indicator.style.transform = 'translateX(0)';
         evbutton.classList.add('active');
         randombutton.classList.remove('active');
+        if (autoupdate) updatecalculation();
     });
 
     randombutton.addEventListener('click', () => {
@@ -247,6 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
         indicator.style.transform = 'translateX(100%)';
         randombutton.classList.add('active');
         evbutton.classList.remove('active');
+        if (autoupdate) updatecalculation();
     });
 
     function drawChart(balanceHistory, initialBalance, numberoftrades) {

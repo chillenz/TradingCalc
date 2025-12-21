@@ -55,6 +55,11 @@ Website Demo
 **Storage:** LocalStorage
 ## Change Logs
 
+**Version 3.3 (current)**
+- Fixed account risk not showing
+- Fixed default settings
+- Fixed instant update not working on presets
+
 **Version 3.2 (current)**
 - Changed from vh to dvh to account for bookmarks and bars
 - Added icon for each navigation
