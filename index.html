@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strategy Calculator</title> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>TradingCalc</title> <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link rel="shortcut icon" type="image/jpg" href="icon.png"/>
     <link rel="stylesheet" href="style2.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="dark">
     
     <header id="topbar">
-        <div id="title">
+        <div id="title" onclick="openPage('home'); sidebar.style.transform = 'translateX(-100%)';darkscreen.style.opacity = '0';darkscreen.style.pointerEvents = 'none';document.body.style.overflow = 'auto';">
             <span id="borgor">☰</span>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="2" y="13" width="4" height="9" rx="1" fill="#1A2B5F" id="leg1"/>
                 <rect x="10" y="6" width="4" height="16" rx="1" fill="#19D4C3"/>
                 <rect x="18" y="10" width="4" height="12" rx="1" fill="#1A2B5F" id="leg2"/>
             </svg>
-            Trading Strategy Calculator
+            Trading<span id="calc">Calc</span>
         </div>
     </header>
 
@@ -158,17 +159,73 @@
         </div>
     </div>
 
+    <div id="homepage">
+        <div id="homecontainer">
+            <div class="homehero">
+                <h1 class="slogan">Trade With Precision.</h1>
+                <p class="homesub">Professional trading calculators and strategy simulators designed for informed decision making</p>
+            </div>
+
+            <div class="homecard" aria-label="Tools directory">
+                <div class="card" role="button" tabindex="0" onclick="openPage('main')">
+                    <div class="cardicon">
+                        <svg viewBox="0 0 24 24" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 17l6-6 4 4 8-8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="cardtitle">Strategy Simulator</div>
+                    <div class="carddesc">Calculate expected value and simulate strategy outcomes (EV & Monte Carlo).</div>
+                    <div class="cardlaunch launch-green">Launch Tool →</div>
+                </div>
+
+                <div class="card" role="button" tabindex="0" onclick="openPage('size')">
+                    <div class="cardicon">
+                        <svg viewBox="0 0 24 24" width="36" height="36" class="text-current">
+                            <line x1="5" y1="19" x2="19" y2="5"
+                                stroke="currentColor" stroke-width="2"/>
+                            <circle cx="7" cy="7" r="2"
+                                fill="none" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="17" cy="17" r="2"
+                                fill="none" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="cardtitle">Position Size Calculator</div>
+                    <div class="carddesc">Calculate optimal position sizes based on stop loss and account size.</div>
+                    <div class="cardlaunch launch-yellow">Launch Tool →</div>
+                </div>
+
+                <div class="card" role="button" tabindex="0" onclick="openPage('compound')">
+                    <div class="cardicon">
+                        <svg viewBox="0 0 24 24" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L15 8L22 9L17 14L18.5 21L12 17.5L5.5 21L7 14L2 9L9 8L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="cardtitle">Compounding Calculator</div>
+                    <div class="carddesc">See how compounding affects your profits over time.</div>
+                    <div class="cardlaunch launch-red">Launch Tool →</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div id="darkscreen"></div>
     <div id="sidebar">
-        <div id="navmain" class="nav currentpage">
+        <div id="navhome" class="nav currentpage" onclick="openPage('home')">
+            <svg viewBox="0 0 24 24" class="navicon">
+                <path d="M3 11L12 3l9 8v8a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-8z" fill="currentColor"/>
+            </svg>
+            <span>Home</span>
+        </div>
+        <div id="navmain" class="nav" onclick="openPage('main')">
             <svg viewBox="0 0 24 24" class="navicon">
                 <polyline points="3,17 9,11 13,15 21,7"
                     fill="none" stroke="currentColor" stroke-width="2"/>
             </svg>
-            <span>Strategy calculator</span>
+            <span>Strategy Simulator</span>
         </div>
 
-        <div id="navsize" class="nav">
+        <div id="navsize" class="nav" onclick="openPage('size')">
             <svg viewBox="0 0 24 24" class="navicon">
                 <line x1="5" y1="19" x2="19" y2="5"
                     stroke="currentColor" stroke-width="2"/>
@@ -177,13 +234,19 @@
                 <circle cx="17" cy="17" r="2"
                     fill="none" stroke="currentColor" stroke-width="2"/>
             </svg>
-            <span>Position Size calculator</span>
+            <span>Position Size Calculator</span>
+        </div>
+
+        <div id="navcompound" class="nav" onclick="openPage('compound')">            
+            <svg viewBox="0 0 24 24" class="navicon" fill="none" stroke="currentColor">
+                <path d="M12 2L15 8L22 9L17 14L18.5 21L12 17.5L5.5 21L7 14L2 9L9 8L12 2Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Compounding Calculator</span>
         </div>
 
         <div id="setting">
             <span>Theme Mode</span>
             <div class="bgbutton" id="themetoggle">
-                <div class="circle" id="themecircle"></div>
             </div>
             
             <span>Instant Update</span>
@@ -268,8 +331,95 @@
         </div>
     </div>
 
+    <div id="compoundpage">
+        <div id="compoundcontainer">
+            <div id="compoundtitle"> Compounding Calculator</div>
+            <div id="compoundinputsection">
+                <div id="compoundbalance" class="inputgroup">
+                    <label>Starting Balance ($)</label>
+                    <div class="inputwrapper">
+                        <input type="number" id="compoundbalanceinput" value="1000" class="compoundinput">
+                        <span class="suffix">$</span>
+                    </div>
+                </div>
 
+                <div id="compoundreturn" class="inputgroup">
+                    <label>Average Return (%) <span title="average % return on each trade">i</span></label>
+                    <div class="inputwrapper">
+                        <input type="number" id="compoundreturninput" value="2" class="compoundinput">
+                        <span class="suffix">%</span>
+                    </div>
+                </div>
 
+                <div id="compoundntradesno" class="inputgroup">
+                    <label>Number of Trades</label>
+                    <div class="inputwrapper">
+                        <input type="number" id="compoundtradesinput" value="100" class="compoundinput">
+                    </div>
+                    <div id="presetscontainer">
+                        <span class="presettagc">100</span>
+                        <span class="presettagc">1k</span>
+                        <span class="presettagc">10k</span>
+                    </div>
+                </div>
+
+                <button id="calculatecompound">
+                    Calculate
+                </button>
+
+                <div id="errorcom" style="display:none;color:#e61c3d;margin-top:8px;font-size:0.9rem;">Please fill all inputs correctly.</div>
+            </div>
+            <div id="compoundoutputs">
+                <div id="compoundfinalbalance" class="compoundtile">
+                    <div class="compoundlabel lighttext">Final Balance</div>
+                    <div class="compoundvalue greentext" id="comendbalancevalue">$0.00</div>
+                </div>
+
+                <div id="compoundtotalprofit" class="compoundtile">
+                    <div class="compoundlabel lighttext">Total Profit</div>
+                    <div class="compoundvalue greentext" id="comtotalprofitvalue">$0.00</div>
+                </div>
+            </div>
+            <div id="compoundgrid" class="compoundgrid">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Trade #</th>
+                            <th>Balance</th>
+                            <th>% Gain</th>
+                        </tr>
+                    </thead>
+                    <tbody id="compoundgridbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <a href="https://github.com/chillenz" target="_blank">
+        <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 496 512" 
+            width="40px" 
+            height="40px" 
+            style="opacity: 0.2; transition: opacity 0.3s ease;"
+            onmouseover="this.style.opacity='1'"
+            onmouseout="this.style.opacity='0.2'" id="github">
+            <path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6
+            3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5
+            .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8
+            8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8
+            0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1
+            16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27
+            20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9
+            0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9
+            496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7
+            1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6
+            6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path>
+        </svg>
+    </a>
+    
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script2.js"></script>
 </body>

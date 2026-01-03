@@ -92,13 +92,13 @@ body.dark {
 }  
 
 #setting::before{
-    content: 'Setting';
-    font-size: 22px;
-    color: var(--text-main);
+    font-weight: 400;
+    content: 'SETTINGS';
+    font-size: 17px;
+    color: var(--text-light);
     position: absolute;
     top: -35px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 5%;
 }
 
 #setting span{
@@ -120,6 +120,7 @@ body.dark {
     display: flex;
     align-items: center;
     margin-left: 40px;
+    overflow: hidden;
 }
 
 .circle{
@@ -144,12 +145,20 @@ body.dark {
 
 #title {
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: var(--primary);
     display: flex;
     align-items: center;
     gap: 5px;
     margin: 1rem 6rem;
+    user-select: none;
+    cursor: pointer;
+}
+
+#calc{
+    text-decoration: underline;
+    text-decoration-color: var(--text-main);
+    margin-left: -4px;
 }
 
 #container {
@@ -160,6 +169,8 @@ body.dark {
     grid-template-columns: 350px 1fr; 
     align-items: start;
     box-shadow: 0 10px 10px rgba(26, 43, 95, 0.08);
+    border: 1px solid var(--window-border);
+
 }
 
 
@@ -327,7 +338,7 @@ input[type="range"]:focus {
     font-weight: 600;
 }
 
-#calculate, #calculatesize {
+#calculate, #calculatesize, #calculatecompound {
     user-select: none;
     width: 100%;
     padding: 1rem;
@@ -344,7 +355,7 @@ input[type="range"]:focus {
     align-items: center;
 }
 
-#calculatesize:hover, #calculate:hover{
+#calculatesize:hover, #calculate:hover, #calculatecompound:hover {
     transform: translateY(-2px);
     box-shadow: 0 3px 15px rgba(25, 212, 195, 0.4);
 }
@@ -360,7 +371,7 @@ input[type="range"]:focus {
     gap: 5px;
     margin-top: 10px;
 }
-.presettag {
+.presettag, .presettagc {
     text-align: center;
     width: 33%;
     font-size: 0.8rem;
@@ -370,7 +381,7 @@ input[type="range"]:focus {
     cursor: pointer;
     color: var(--lighttext);
 }
-.presettag:hover { background: var(--inputfocus); color: var(--primary); }
+.presettag:hover, .presettagc:hover { background: var(--inputfocus); color: var(--primary); }
 
 
 
@@ -483,11 +494,11 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-#mainpage, #sizepage {
+#mainpage, #sizepage, #homepage, #compoundpage {
     width: 100%;
 }
 
-#sizepage{
+#sizepage, #mainpage, #compoundpage{
     display: none;
 }
 
@@ -589,6 +600,7 @@ body::-webkit-scrollbar, body::-webkit-scrollbar-button { display: none; }
 }
 
 #calculatesize{margin-top: 20px;}
+#calculatecompound{width: 400px; max-width: 90%;}
 
 #sizeinputsection, #sizeresultsection{
     width: 50%;
@@ -618,6 +630,23 @@ body::-webkit-scrollbar, body::-webkit-scrollbar-button { display: none; }
     height: fit-content;
     transition: scale 0.1s;
 }
+
+#aggressivesize{
+    border-left: #EB5757 3px solid;
+    background-color: #eb575713;
+}
+
+#standardsize{
+    border-left: #FFBF00 3px solid;
+    background-color: #eb575713;
+}
+
+
+#conservativesize{
+    border-left: #27AE60 3px solid;
+    background-color: #27ae6013;
+}
+
 
 .sizetile .lighttext{
     font-size: 12px;
@@ -689,3 +718,163 @@ body::-webkit-scrollbar, body::-webkit-scrollbar-button { display: none; }
 
 }
 
+.homehero{
+    text-align: center;
+    padding: 3rem 1rem;
+}
+.slogan{
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    background: linear-gradient(90deg, var(--accent), var(--primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.homesub{
+    color: var(--lighttext);
+    font-size: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.homecard{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    padding: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto 2rem auto;
+}
+.card{
+    background: var(--bg-window);
+    border: 1px solid var(--window-border);
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.card:hover{ transform: translateY(-6px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+.cardicon{ color: var(--accent); }
+.cardicon svg{ width: 40px; height: 40px; }
+.cardtitle{ font-weight: 700; color: var(--text-primary); font-size: 1.05rem; }
+.carddesc{ color: var(--lighttext); font-size: 0.9rem; margin-top: 4px; flex:1 }
+.cardlaunch{ font-weight: 700; margin-top: 8px; }
+.launch-green{ color: #3cc07e; }
+.launch-yellow{ color: #52b7e6; }
+.launch-red{ color: #3cc07e; }
+
+#github{
+    left: 50%;
+    position: fixed;
+    transform: translateX(-50%);
+    bottom: 20px;
+}
+
+@media (max-width: 700px) {
+    .slogan{ font-size: 28px; }
+    .homehero{ padding: 2rem 0.8rem; }
+}
+
+
+#compoundcontainer{
+    width: 600px;
+    height: fit-content;
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    margin: 4rem auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
+}
+
+
+#compoundtitle{
+    border-bottom: 1px solid var(--window-border);
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 22px;
+    flex-shrink: 0;
+    color: var(--primary);
+    font-weight: 600; 
+    background-color: var(--window-bg);
+}
+
+#compoundinputsection{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--window-border);
+    gap: .7rem;
+    padding: 1.5rem;
+    align-items: center;
+    border-bottom: 1px solid var(--window-border);
+}
+
+#compoundinputsection .inputgroup{
+    width: 400px;
+    max-width: 90%;
+}
+
+#compoundoutputs{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 1.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.compoundgrid{
+    width: 100%;
+    margin-top: 1rem;
+    background: var(--window-bg);
+    border-radius: 6px;
+    max-height: 300px; /* show up to ~300 rows, then scroll */
+    overflow: auto;
+}
+.compoundgrid table{
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 480px;
+}
+.compoundgrid thead th{
+    position: sticky;
+    top: 0;
+    background: var(--window-bg);
+    color: var(--lighttext);
+    font-size: 0.85rem;
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+}
+.compoundgrid tbody td{
+    padding: 10px 12px;
+    border-bottom: 1px dashed var(--line);
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+.compoundgrid tbody tr:nth-child(even){
+    background: linear-gradient(90deg, rgba(0,0,0,0.01), transparent);
+}
+.compoundtile{
+    border: 1px solid var(--window-border);
+    width: 45%;
+    padding: 10px 10px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 150px;
+    flex-grow: 1;
+}

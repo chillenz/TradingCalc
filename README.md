@@ -55,12 +55,18 @@ Website Demo
 **Storage:** LocalStorage
 ## Change Logs
 
-**Version 3.3 (current)**
+**Version 4 (current)**
+- Changed name to TradingCalc
+- Added icon
+- Added home page
+- Added compounding calculator 
+
+**Version 3.3**
 - Fixed account risk not showing
 - Fixed default settings
 - Fixed instant update not working on presets
 
-**Version 3.2 (current)**
+**Version 3.2**
 - Changed from vh to dvh to account for bookmarks and bars
 - Added icon for each navigation
 - Added settings
@@ -70,7 +76,7 @@ Website Demo
 - Fixed theme toggle overlap with mobile nav bar
 - Updated strategy calculator size in mobile
 
-**Version 3 (current)**
+**Version 3**
 - Added position size calculator
 - Fixed trade # in chart
 - Added hamburger and sidebar

@@ -1,60 +1,73 @@
+function openPage(page){
+    const pages = {"home": homepage, "main": mainpage, "size": sizepage, "compound": compoundpage}
+    const navs = {"home": navhome, "main": navmain, "size": navsize, "compound": navcompound}
+    Object.entries(pages).forEach(([key, value]) => {
+        value.style.display="none";
+        if (page === key){value.style.display="block";}
+    });
+    Object.entries(navs).forEach(([key,value]) => {
+        if (value.classList.contains('currentpage')){value.classList.remove('currentpage');}
+        if (page===key){value.classList.add('currentpage');}
+    });
+}
+
+const presets = Array.from(document.querySelectorAll('.presettag'));
+const presetsc = Array.from(document.querySelectorAll('.presettagc'));
+const evbutton = document.getElementById('expectedvaluebutton');
+const randombutton = document.getElementById('randombutton');
+const calculate = document.getElementById('calculate');
+
+const endbalancetext = document.getElementById('endbalancevalue');
+const evtext = document.getElementById('expectedvaluevalue');
+const profitlosstext = document.getElementById('profitlossvalue');
+const riskrewardtext = document.getElementById('riskrewardvalue');
+const totalcommissionstext = document.getElementById('totalcommissionvalue');
+const numberoftradesinput = document.getElementById('numberoftradesinput');
+const accountriskvalue = document.getElementById('accountriskpercent');
+const error = document.getElementById('error');
+const leg1 = document.getElementById('leg1');
+const leg2 = document.getElementById('leg2');
+const positionsizeinput = document.getElementById('positionsizeinput');
+const inputvaluetext = document.getElementById('inputvaluetext');
+
+const compoundbalanceinput = document.getElementById('compoundbalanceinput');
+const compoundreturninput = document.getElementById('compoundreturninput');
+const compoundtradesinput = document.getElementById('compoundtradesinput');
+const errorcom = document.getElementById('errorcom');
+const calculatecompound = document.getElementById('calculatecompound');
+const comendbalancevalue = document.getElementById('comendbalancevalue');
+const comtotalprofitvalue = document.getElementById('comtotalprofitvalue');
+const compoundgridbody = document.getElementById('compoundgridbody');
+
+const themetoggle = document.getElementById('themetoggle');
+const updatetoggle = document.getElementById('updatetoggle');
+const updatecircle = document.getElementById('updatecircle');
+const animationtoggle = document.getElementById('animationtoggle');
+const animationcircle = document.getElementById('animationcircle');
+
+const indicator = document.getElementById('switchbg');
+
+const burger = document.getElementById('borgor');
+const sidebar = document.getElementById('sidebar');
+const darkscreen = document.getElementById('darkscreen');
+
+const navmain = document.getElementById('navmain');
+const navsize = document.getElementById('navsize');
+const navhome = document.getElementById('navhome');
+const navcompound = document.getElementById('navcompound');
+
+const sizepage = document.getElementById('sizepage');
+const mainpage = document.getElementById('mainpage');
+const homepage = document.getElementById('homepage');
+const compoundpage = document.getElementById('compoundpage');
+
+const calculatesize = document.getElementById('calculatesize');
+const errorsize = document.getElementById('errorsize')
+const riskvaluestext = Array.from(document.querySelectorAll('.riskvalue'));
+
+const inputs = Array.from(document.querySelectorAll('input'));
+
 document.addEventListener('DOMContentLoaded', () => {
-    const presets = Array.from(document.querySelectorAll('.presettag'));
-    const evbutton = document.getElementById('expectedvaluebutton');
-    const randombutton = document.getElementById('randombutton');
-    const calculate = document.getElementById('calculate');
-
-    const endbalancetext = document.getElementById('endbalancevalue');
-    const evtext = document.getElementById('expectedvaluevalue');
-    const profitlosstext = document.getElementById('profitlossvalue');
-    const riskrewardtext = document.getElementById('riskrewardvalue');
-    const totalcommissionstext = document.getElementById('totalcommissionvalue');
-    const numberoftradesinput = document.getElementById('numberoftradesinput');
-    const accountriskvalue = document.getElementById('accountrisk');
-    const error = document.getElementById('error');
-    const leg1 = document.getElementById('leg1');
-    const leg2 = document.getElementById('leg2');
-    const positionsizeinput = document.getElementById('positionsizeinput');
-    const inputvaluetext = document.getElementById('inputvaluetext');
-
-    const themetoggle = document.getElementById('themetoggle');
-    const themecircle = document.getElementById('themecircle');
-    const updatetoggle = document.getElementById('updatetoggle');
-    const updatecircle = document.getElementById('updatecircle');
-    const animationtoggle = document.getElementById('animationtoggle');
-    const animationcircle = document.getElementById('animationcircle');
-
-    const indicator = document.getElementById('switchbg');
-    
-    const burger = document.getElementById('borgor');
-    const sidebar = document.getElementById('sidebar');
-    const darkscreen = document.getElementById('darkscreen');
-
-    const navmain = document.getElementById('navmain');
-    const navsize = document.getElementById('navsize');
-
-    const sizepage = document.getElementById('sizepage');
-    const mainpage = document.getElementById('mainpage');
-
-    const calculatesize = document.getElementById('calculatesize');
-    const errorsize = document.getElementById('errorsize')
-    const riskvaluestext = Array.from(document.querySelectorAll('.riskvalue'));
-    
-    const inputs = Array.from(document.querySelectorAll('input'));
-
-    navmain.addEventListener('click', () => {
-        navsize.classList.remove('currentpage')
-        navmain.classList.add('currentpage')
-        mainpage.style.display = "block";
-        sizepage.style.display = 'none';
-    });
-
-    navsize.addEventListener('click', () => {
-        navmain.classList.remove('currentpage');
-        navsize.classList.add('currentpage');
-        mainpage.style.display = "none";
-        sizepage.style.display = "block";
-    });
 
     let bgmode = localStorage.getItem('mode') || 'dark';
     let autoupdate = localStorage.getItem('update') === 'true';
@@ -79,7 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
     darkscreen.addEventListener('click', () => {sidebar.style.transform = 'translateX(-100%)';darkscreen.style.opacity = '0';
             darkscreen.style.pointerEvents = 'none'; document.body.style.overflow = 'auto';})
             
-    burger.addEventListener('click', () => {
+    burger.addEventListener('click', (e) => {
+        e.stopPropagation();
         if (sidebar.style.transform === 'translateX(0%)') {
             sidebar.style.transform = 'translateX(-100%)';
             darkscreen.style.opacity = '0';
@@ -97,6 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function valueanimation(el, start, end, formatter = v => v) {
         let startTime = null;
+
+        const hasNumber = /\d/;
+
+        if (!hasNumber.test(start)) {
+            start = 0;
+        }
 
         if (!el) return;
         function step(timestamp) {
@@ -119,29 +139,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (bgmode === 'dark') {
             document.body.classList.add('dark');
             gridcolor = 'rgba(179, 179, 179, 0.1)';
-            if (themecircle) themecircle.style.left = '24px';
-            if (themetoggle) {
-                themetoggle.style.backgroundColor = '#1c2731ff';
-                leg1.style.fill = 'white';
-                leg2.style.fill = 'white';
-            }
-            if (updatetoggle && animationtoggle) {
-                updatetoggle.style.backgroundColor = '#1c2731ff';
-                animationtoggle.style.backgroundColor = '#1c2731ff';
-            }
+            if (themetoggle) themetoggle.style.backgroundColor = '#5193d1ff';
+            if (leg1) { leg1.style.fill = 'white'; }
+            if (leg2) { leg2.style.fill = 'white'; }
+            if (updatetoggle) updatetoggle.style.backgroundColor = '#1c2731ff';
+            if (animationtoggle) animationtoggle.style.backgroundColor = '#1c2731ff';
         } else {
             document.body.classList.remove('dark');
             gridcolor = 'rgba(0, 0, 0, 0.18)';
-            if (themecircle) themecircle.style.left = '0px';
-            if (themetoggle) {
-                themetoggle.style.backgroundColor = '#e0e0e0';
-                leg1.style.fill = '#1A2B5F';
-                leg2.style.fill = '#1A2B5F';
-            }
-            if (updatetoggle && animationtoggle) {
-                updatetoggle.style.backgroundColor = '#e0e0e0';
-                animationtoggle.style.backgroundColor = '#e0e0e0';
-            }
+            if (themetoggle) themetoggle.style.backgroundColor = '#FFBF00';
+            if (leg1) { leg1.style.fill = '#1A2B5F'; }
+            if (leg2) { leg2.style.fill = '#1A2B5F'; }
+            if (updatetoggle) updatetoggle.style.backgroundColor = '#e0e0e0';
+            if (animationtoggle) animationtoggle.style.backgroundColor = '#e0e0e0';
         }
         try { localStorage.setItem('mode', bgmode); } catch (e) {}
     }
@@ -224,11 +234,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    presetsc.forEach(p => {
+        p.addEventListener('click', () => {
+            const val = p.textContent || p.innerText;
+            if (val.includes('k')){
+                compoundtradesinput.value = parseInt(val.replace('k', '')) * 1000;
+            }
+            if (val > 0) {
+                compoundtradesinput.value = val;
+            }
+            if (autoupdate) updatecalculation();
+        });
+    });
+
     inputs.forEach(input => {
         input.addEventListener('input', () => {
             if (autoupdate === true){   
                 if (input.classList.contains('sizeinput')){
                     updatecalculationsize()
+                } else if (input.classList.contains('compoundinput')){
+                    updatecalculationcompound()
                 } else{
                     updatecalculation()
                 }
@@ -554,6 +579,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
         prevriskvalues = riskvalues
     }
-
     calculatesize.addEventListener('click', () => {updatecalculationsize()});
+
+    function updatecalculationcompound(){
+        let startbalance = parseFloat(compoundbalanceinput.value);
+        let returnpercent = parseFloat(compoundreturninput.value);
+        let numberoftrades = parseInt(compoundtradesinput.value, 10);
+        errorcom.style.display = 'none';
+        if (isNaN(startbalance) || isNaN(returnpercent) || isNaN(numberoftrades)) {
+            errorcom.style.display = 'block';
+            return;
+        }
+
+        let endbalance = startbalance*(Math.pow(1 + returnpercent / 100, numberoftrades));
+        let totalprofit = endbalance - startbalance;
+
+        if (animate) {
+            valueanimation(comendbalancevalue,parseFloat(comendbalancevalue.textContent.replace(/[$,]/g, '')),endbalance,v => '$' + magnitude(v));
+            valueanimation(comtotalprofitvalue,parseFloat(comtotalprofitvalue.textContent.replace(/[$,]/g, '')),totalprofit,v => '$' + magnitude(v));
+        } else {
+            comendbalancevalue.textContent = '$' + magnitude(endbalance);
+            comtotalprofitvalue.textContent = '$' + magnitude(totalprofit);
+        }
+
+        if (compoundgridbody) {
+            compoundgridbody.innerHTML = '';
+            const maxRows = Math.min(numberoftrades, 300);
+            for (let i = 1; i <= maxRows; i++) {
+                const bal = startbalance * Math.pow(1 + returnpercent / 100, i);
+                const pct = ((bal - startbalance) / startbalance) * 100;
+                const row = `\n                    <tr>\n                        <td>${i}</td>\n                        <td>$${magnitude(bal)}</td>\n                        <td>${pct.toFixed(2)}%</td>\n                    </tr>`;
+                compoundgridbody.insertAdjacentHTML('beforeend', row);
+            }
+        }
+    }
+    calculatecompound.addEventListener('click', () => {updatecalculationcompound()});
 });
