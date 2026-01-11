@@ -605,11 +605,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (compoundgridbody) {
             compoundgridbody.innerHTML = '';
             const maxRows = Math.min(numberoftrades, 300);
-            for (let i = 1; i <= maxRows; i++) {
+            if (maxRows <= 0) return;
+            if (maxRows === 1) {
+                const i = numberoftrades;
                 const bal = startbalance * Math.pow(1 + returnpercent / 100, i);
                 const pct = ((bal - startbalance) / startbalance) * 100;
                 const row = `\n                    <tr>\n                        <td>${i}</td>\n                        <td>$${magnitude(bal)}</td>\n                        <td>${pct.toFixed(2)}%</td>\n                    </tr>`;
                 compoundgridbody.insertAdjacentHTML('beforeend', row);
+            } else {
+                for (let r = 0; r < maxRows; r++) {
+                    const tradeNum = 1 + Math.round(r * (numberoftrades - 1) / (maxRows - 1));
+                    const bal = startbalance * Math.pow(1 + returnpercent / 100, tradeNum);
+                    const pct = ((bal - startbalance) / startbalance) * 100;
+                    const row = `\n                    <tr>\n                        <td>${tradeNum}</td>\n                        <td>$${magnitude(bal)}</td>\n                        <td>${pct.toFixed(2)}%</td>\n                    </tr>`;
+                    compoundgridbody.insertAdjacentHTML('beforeend', row);
+                }
             }
         }
     }

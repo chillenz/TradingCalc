@@ -55,7 +55,11 @@ Website Demo
 **Storage:** LocalStorage
 ## Change Logs
 
-**Version 4 (current)**
+**Version 4.1 (current)**
+- Slight ui change
+- Fixed compounding calculator only showing first 300 trades
+
+**Version 4**
 - Changed name to TradingCalc
 - Added icon
 - Added home page

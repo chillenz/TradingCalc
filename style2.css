@@ -123,6 +123,8 @@ body.dark {
     overflow: hidden;
 }
 
+#themetoggle{width: 30px;margin-right: 15px;}
+
 .circle{
     height: 24px;
     width: 24px;
@@ -173,6 +175,23 @@ body.dark {
 
 }
 
+h2 {
+    font-size: 1.2rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.5rem;
+    font-weight: 600; 
+}
+
+#container h2{
+    font-size: 1.2rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.5rem;
+    font-weight: 600; 
+}
 
 #variablesection, #resultsection {
     background: var(--bg-window);
@@ -182,14 +201,6 @@ body.dark {
     height: 100%;   
 }
 
-h2 {
-    font-size: 1.2rem;
-    color: var(--primary);
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 0.5rem;
-    font-weight: 600; 
-}
 
 
 #variablecontainer {
@@ -470,7 +481,7 @@ input[type="range"]:focus {
 
 #chart-placeholder {
     width: 100%;
-    height: 400px;
+    height: 433px;
     background: linear-gradient(to bottom, var(--window-gradient-start), var(--window-gradient-end));
     position: relative;
     border: 1px dashed var(--line);
@@ -839,7 +850,7 @@ body::-webkit-scrollbar, body::-webkit-scrollbar-button { display: none; }
     margin-top: 1rem;
     background: var(--window-bg);
     border-radius: 6px;
-    max-height: 300px; /* show up to ~300 rows, then scroll */
+    max-height: 300px;
     overflow: auto;
 }
 .compoundgrid table{
